@@ -168,6 +168,6 @@ def run_forever(command):
 
 if __name__ == "__main__":
 
-    run_forever(["python", "./test.py"])
+    run_forever(["python", "./main.py"])
 
 
