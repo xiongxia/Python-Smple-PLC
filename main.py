@@ -15,6 +15,7 @@ if __name__ == "__main__":
     MYSQL("aicotin.db")
     
     deviceIdSql=MYSQL("aicotin.db")
+	
     if len(sys.argv)>1:
         deviceIdSql.delete('DeviceID')
         LOG.debug('update DeviceId')
