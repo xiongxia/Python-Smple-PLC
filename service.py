@@ -102,7 +102,7 @@ def start_child_proc(command, merged):
 
 def run_forever(command):
 
-    log = Logger('service',2)
+    log = Logger('service',0)
     log.info("start child process with command: " + ' '.join(command))
     print_info("start child process with command: " + ' '.join(command))
 
