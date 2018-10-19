@@ -161,7 +161,7 @@ def uploadData():
             value=item[2]
             #allData+='{deviceId:'+str(deviceId)+',quotaId:'+str(quotaId)+',value:'+str(value)+'}'
             
-            data=strutData(deviceId,quotaId,value)
+            data=strutUploadCollectData(deviceId,quotaId,value)
             allData+=data.toString()
             
         para = {'collectData':'['

@@ -1,6 +1,6 @@
 import json
 
-class strutData:
+class strutUploadCollectData:
     def __init__(self,deviceId,quotaId,value):
         self.deviceId=deviceId
         self.quotaId=quotaId
