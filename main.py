@@ -9,7 +9,7 @@ import sys
 if __name__ == "__main__":
 
     #init LOG
-    LOG=Logger(0)
+    LOG=Logger('aicotinlog',0)
 
     #init database
     MYSQL("aicotin.db")

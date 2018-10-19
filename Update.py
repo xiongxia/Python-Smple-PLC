@@ -20,7 +20,7 @@ def getMd5(filePath):
 
 def update():
   #open log file
-  LOG=Logger(1)
+  LOG=Logger('aicotinlog',1)
   global updateTimer
   updateTimer = Timer(30, update)
   updateTimer.start()

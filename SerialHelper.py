@@ -5,7 +5,7 @@ import serial
 import binascii
 import platform
 import threading
-from log import Logger
+from Log import Logger
 
 if platform.system() == "Windows":
     from  serial.tools import list_ports
@@ -27,7 +27,7 @@ class SerialHelper(object):
 
         self._serial = None
         self._is_connected = False
-        self.log = Logger(1)
+        self.log = Logger('aicotinlog',1)
 
     def connect(self, timeout=2):
         '''

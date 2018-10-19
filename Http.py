@@ -9,7 +9,7 @@ from Log import *
 class Http:
    def PostRequest(url,para):
       #打开日志文件
-      LOG=Logger('log.log',1)
+      LOG=Logger('aicotinlog',1)
       requestParameter = urllib.parse.urlencode(para).encode(encoding='utf-8')
       #print("%s"%requestParameter)
 

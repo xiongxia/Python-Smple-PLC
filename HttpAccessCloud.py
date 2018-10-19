@@ -3,10 +3,11 @@ from threading import Timer
 import json
 from SQL import *
 from Log import *
+from Data import *
 
 def uploadHeart():
     #open log file
-    LOG=Logger(1)
+    LOG=Logger('aicotinlog',1)
     global uploadHeartTimer
     #get upload frequency from database
     uploadHeartTimer = Timer(60, uploadHeart)
@@ -62,7 +63,7 @@ def uploadHeart():
     
 def updateConfig():
     #open LOG file
-    LOG=Logger(1)
+    LOG=Logger('aicotinlog',1)
     global updateConfigTimer
     #get upload frequency from database
     updateConfigTimer = Timer(60, updateConfig)
@@ -80,6 +81,7 @@ def updateConfig():
         responseOrigin=Http.PostRequest(url,para)
         if(responseOrigin!=''):
             response=json.loads(responseOrigin)
+            LOG.debug(response)
             #access cloud success
             if(response['code']==200):
                 data=response['data']
@@ -133,7 +135,7 @@ def updateConfig():
 
 def uploadData():
     #open LOG file
-    LOG=Logger(1)
+    LOG=Logger('aicotinlog',1)
     global uploadDataTimer
     #get the frequency from database
     uploadDataTimer = Timer(60, uploadData)
@@ -157,19 +159,23 @@ def uploadData():
             deviceId=item[0]
             quotaId=item[1]
             value=item[2]
-            allData+='{deviceId:'+str(deviceId)+',quotaId:'+str(quotaId)+',value:'+str(value)+'}'
+            #allData+='{deviceId:'+str(deviceId)+',quotaId:'+str(quotaId)+',value:'+str(value)+'}'
+            
+            data=strutData(deviceId,quotaId,value)
+            allData+=data.toString()
+            
         para = {'collectData':'['
                 +allData
                 +']'}
         responseOrigin=Http.PostRequest(url,para)
         if(responseOrigin!=''):
             response=json.loads(responseOrigin)
-            if((response['code']==200)&(len(response['data'])==0)):
+            if((response['code']==200)&(response['data']==None)):
                 print('upload data success')
                 LOG.debug('upload data success')
             else:
                 print('upload data fail')
-                LOG.debug('upload data fail')
+                LOG.debug('upload data fail'+str(response))
         else:
             print(url+'access cloud fail')
             LOG.debug(url+'access cloud fail')
