@@ -56,12 +56,15 @@ class digestHttp:
             digest_resp = digest_opener.open(digest_request).read().decode('utf-8')
             print(digest_resp)
             LOG.debug(digest_resp)
+            return digest_resp
         except error.HTTPError as e:
             print(e)
             LOG.debug(e)
+            return ''
         except error.URLError as e:
             print(e)
             LOG.debug(e)
+            return ''
             
     def GET_info(self):
         #打开日志文件
@@ -74,14 +77,17 @@ class digestHttp:
         #access
         try:
             digest_resp = digest_opener.open(digest_request).read().decode('utf-8')
-            print(digest_resp)
-            LOG.debug(digest_resp)            
+            #print(digest_resp)
+            LOG.debug(digest_resp)
+            return digest_resp
         except error.HTTPError as e:
             print(e)
             LOG.debug(e)
+            return ''
         except error.URLError as e:
             print(e)
             LOG.debug(e)
+            return ''
 
     def POST_info(self,postData):
         #打开日志文件
@@ -94,14 +100,17 @@ class digestHttp:
         #access
         try:
             digest_resp = digest_opener.open(digest_request).read().decode('utf-8')
-            print(digest_resp)
+            #print(digest_resp)
             LOG.debug(digest_resp)
+            return digest_resp
         except error.HTTPError as e:
             print(e)
             LOG.debug(e)
+            return ''
         except error.URLError as e:
             print(e)
             LOG.debug(e)
+            return ''
             
     def DELETE_info(self):
         #打开日志文件
@@ -114,14 +123,17 @@ class digestHttp:
         #access
         try:
             digest_resp = digest_opener.open(digest_request).read().decode('utf-8')
-            print(digest_resp)
+            #print(digest_resp)
             LOG.debug(digest_resp)
+            return digest_resp
         except error.HTTPError as e:
             print(e)
             LOG.debug(e)
+            return ''
         except error.URLError as e:
             print(e)
             LOG.debug(e)
+            return ''
             
     def HEAD_info(self):
         #打开日志文件
@@ -134,17 +146,20 @@ class digestHttp:
         #access
         try:
             digest_resp = digest_opener.open(digest_request).read().decode('utf-8')
-            print(digest_resp)
+            #print(digest_resp)
             LOG.debug(digest_resp)
             digest_resp_headers = digest_opener.open(digest_request).headers
-            print(digest_resp_headers)
+            #print(digest_resp_headers)
             LOG.debug(digest_resp_headers)
+            return digest_resp_headers
         except error.HTTPError as e:
             print(e)
             LOG.debug(e)
+            return ''
         except error.URLError as e:
             print(e)
             LOG.debug(e)
+            return ''
             
     def HEAD_info_Content_Length(self):
         #打开日志文件
@@ -157,14 +172,17 @@ class digestHttp:
         #access
         try:
             headers_Content_Length = digest_opener.open(digest_request).headers['Content-Length']
-            print(headers_Content_Length)
+            #print(headers_Content_Length)
             LOG.debug(headers_Content_Length)
+            return headers_Content_Length
         except error.HTTPError as e:
             print(e)
             LOG.debug(e)
+            return ''
         except error.URLError as e:
             print(e)
             LOG.debug(e)
+            return ''
         
 
 def testDigestAuth():

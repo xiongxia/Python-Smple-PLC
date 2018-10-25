@@ -1,4 +1,6 @@
 from Http import *
+from XmlParser import *
+import time
 
 class ABB:
     def __init__(self,ipAddress="127.0.0.1",username="Default User",password="robotics"):
@@ -208,7 +210,8 @@ def getActionsOnVTState(abb):
     abb.setUrl("/ctrl/virtualtime/vtstate?action=show")
     return abb.getInfo()
 
-#RAPID services
+#RAPID services##############################################
+
 def getRAPIDSystemResources(abb):
     abb.setUrl("/rw/rapid")
     return abb.getInfo()
@@ -246,7 +249,93 @@ def getModPossibleAll(abb):
 def getSpecifiedRangeOfText(abb,module,task,startRow,startColum,endRow,endColum):
     abb.setUrl("/rw/rapid/modules/"+module+"?task="+task+"&startrow="+startRow+"&startcol="+startColum+"&endrow="+endRow+"&endcol="+endColum)
     return abb.getInfo()
-    
+
+def getRapidModuleActions(abb,module):
+    abb.setUrl("/rw/rapid/modules/"+module+"?action=show")
+    return abb.getInfo()
+
+def getRAPIDModuleAttributes(abb,module,task):
+    abb.setUrl("/rw/rapid/modules/"+module+"?task="+task)
+    return abb.getInfo()
+
+def getChangeCount(abb,module,task):
+    abb.setUrl("/rw/rapid/modules/"+module+"?resource=change-count&task="+task)
+    return abb.getInfo()
+
+def getMotionSystem(abb):
+    abb.setUrl("/rw/motionsystem")
+    return abb.getInfo()
+
+def getMotionSystemAction(abb):
+    abb.setUrl("/rw/motionsystem?action=show")
+    return abb.getInfo()
+
+def getMechunits(abb):
+    abb.setUrl("/rw/motionsystem/mechunits")
+    return abb.getInfo()
+
+def getMechunit(abb,mechunit,continueOnErr,resource):
+    abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"?continue-on-err="+continueOnErr+"&resource="+resource)
+    return abb.getInfo()
+
+def getPhysicalJoints(abb,module):
+    abb.setUrl("/rw/motionsystem/mechunits/"+module+"/pjoints")
+    return abb.getInfo()
+
+def getCartesianValue(abb,mechunit,tool,wobj,coordinate,elogAtErr):
+    abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/cartesian?tool"+tool+"&wobj"+wobj+"&coordinate="+coordinate+"&elog-at-err="+elogAtErr)
+    return abb.getInfo()
+
+def getRobtarget(abb,mechunit,tool,wobj,coordinate):
+    abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/robtarget?tool"+tool+"&wobj"+wobj+"&coordinate="+coordinate)
+    return abb.getInfo()
+
+def getAxes(abb,mechunit):
+    abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/axes")
+    return abb.getInfo()
+
+def getAxis(abb,mechunit,axis):
+    abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/axes/"+axis)
+    return abb.getInfo()
+
+def getAxisActions(abb,mechunit,axis):
+    abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/axes/"+axis+"?action=show&json=1")
+    return abb.getInfo()
+
+def getSMBData(abb,mechunit):
+    abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/smbdata")
+    return abb.getInfo()
+
+def getSMBDataActions(abb,mechunit):
+    abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/smbdata?action=show")
+    return abb.getInfo()
+
+def getMotorCalibNames(abb,mechunit):
+    abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/motorcalib")
+    return abb.getInfo()
+
+def getVisionManagerResource(abb):
+    abb.setUrl("/rw/vision")
+    return abb.getInfo()
+
+def getNumberOfCamerasOfIV(abb):
+    abb.setUrl("/rw/vision?resource=num-of-cameras")
+    return abb.getInfo()
+
+def getIVCameraValidity(abb,cameraName):
+    abb.setUrl("/rw/vision?resource=camera-validity&name="+cameraName)
+    return abb.getInfo()
+
+#File service
+def getFileServiceResources(abb):
+    abb.setUrl("/fileservice")
+    return abb.getInfo()
+
+
+#System service
+def getSystemInformation(abb):
+    abb.setUrl("/rw/system")
+    return abb.getInfo()
     
 #####################
 def test(abb,data):
@@ -268,11 +357,11 @@ def readABBTest():
     abb.setIP("127.0.0.1")
     abb.setUser("Default User","robotics")
 
-    getServiceList(abb)
-    print("****************************")
+    #getServiceList(abb)
+    #print("****************************")
     #getSubscriptionActions(abb)
-    getSubscriptionGroupActions(abb,"1")
-    subscribeOnResources(abb,b'resources=1&1=/rw/rapid/symbol/data/RAPID/T_ROB1/uimsg/PNum;value&1-p=2')
+    #getSubscriptionGroupActions(abb,"1")
+    #subscribeOnResources(abb,b'resources=1&1=/rw/rapid/symbol/data/RAPID/T_ROB1/uimsg/PNum;value&1-p=2')
 
     #getUserResources(abb)
     #getUserActions(abb)
@@ -286,7 +375,7 @@ def readABBTest():
     #getControllerEnvVar(abb,"TEMP")
     #getControllerEnvVar(abb,"HOME")
     #getControllerEnvVar(abb,"BACKUP")
-    restartOrShutdownController(abb,b'restart-mode=xstart')
+    #restartOrShutdownController(abb,b'restart-mode=xstart')
     #getClockResource(abb)
     #getClockActions(abb)
     #getTimezoneResource(abb)
@@ -323,7 +412,46 @@ def readABBTest():
     #getRAPIDModulesAction(abb)
     #getRAPIDModules(abb,"T_ROB1")
     #getModPossibleAll(abb)
-    getSpecifiedRangeOfText(abb,"module1","T_ROB1","1","1","50","-1")
+    #getSpecifiedRangeOfText(abb,"module1","T_ROB1","1","1","50","-1")
+    #getRapidModuleActions(abb,"module1")
+    #getRAPIDModuleAttributes(abb,"module1","T_ROB1")
+    #getChangeCount(abb,"module1","T_ROB1")
+    #getMotionSystem(abb)
+    #getMotionSystemAction(abb)
+    #getMechunits(abb)
+    #getMechunit(abb,"ROB_1","1","tool")
+    #getPhysicalJoints(abb,"ROB_1")
+    #getRobtarget(abb,"ROB_1","tool0","wobj1","Base")
+    #getAxes(abb,"ROB_1")
+    #getAxis(abb,"ROB_1","1")
+    #getAxis(abb,"ROB_1","2")
+    #getAxis(abb,"ROB_1","3")
+    #getAxis(abb,"ROB_1","4")
+    #getAxis(abb,"ROB_1","5")
+    #getAxis(abb,"ROB_1","6")
+    #getAxisActions(abb,"ROB_1","1")
+    #getSMBData(abb,"ROB_1")
+    #getSMBDataActions(abb,"ROB_1")
+    #getMotorCalibNames(abb,"ROB_1")
+    #getVisionManagerResource(abb)
+    #getNumberOfCamerasOfIV(abb)
+    #getIVCameraValidity(abb,"camera1")
+
+    #read system information
+    resp=getSystemInformation(abb)
+    if(resp!=""):
+        xmlParserOfSystemInformation(resp)
+
+    #read the coordination of current point
+    count=0
+    while count<10:
+        resp=getCartesianValue(abb,"ROB_1","too10","wobj1","Base","1")
+        if(resp!=''):
+            xmlParserOfCartesianValue(resp)
+        count=count+1
+        time.sleep(2)
+    
+        
     
     
 
