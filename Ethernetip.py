@@ -150,5 +150,11 @@ if __name__ == "__main__":
     #client.main("-a 192.168.56.1 SCADA[1]")
     
     sys.exit( 1 if failures else 0 )
+	
+	
+	from Ethernetip import EtherNetIP
+
+read = EtherNetIP(host='127.0.0.1')
+read.read_by_tag()
     
 '''
