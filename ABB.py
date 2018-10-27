@@ -44,19 +44,23 @@ class ABB:
         hp=digestHttp(self.url,self.username,self.password)
         return hp.POST_info(self.data)
 
+#Root Resource
 def getServiceList(abb):
     abb.setUrl("/rw")
     return abb.getInfo()
 
+#Subscription Service
 def getSubscriptionActions(abb):
     abb.setUrl("/subscription?action=show")
     return abb.getInfo()
 
+#Operations on Subscription Group
 def getSubscriptionGroupActions(abb,groupId):
     abb.setUrl("/subscription/"+groupId+"?action=show")
     print(abb.getUrl())
     return abb.getInfo()
 
+#User Service
 def getUserResources(abb):
     abb.setUrl("/users")
     return abb.getInfo()
@@ -65,10 +69,12 @@ def getUserActions(abb):
     abb.setUrl("/users?action=show")
     return abb.getInfo()
 
+#Operation on Users grants
 def getUserGrants(abb):
     abb.setUrl("/users/grants")
     return abb.getInfo()
 
+#Operations on RMMP
 def getRMMPState(abb):
     abb.setUrl("/users/rmmp")
     return abb.getInfo()
@@ -81,10 +87,12 @@ def getPollForRMMPGrantStatus(abb):
     abb.setUrl("/users/rmmp/poll")
     return abb.getInfo()
 
+#Operation on Remote User
 def getRemoteUserActions(abb):
     abb.setUrl("/users/remoteuser?action=show")
     return abb.getInfo()
 
+#Controller Service
 def getControllerResources(abb):
     abb.setUrl("/ctrl")
     return abb.getInfo()
@@ -103,6 +111,7 @@ def restartOrShutdownController(abb,data):
     abb.setData(data)
     return abb.postInfo()
 
+#Operations on Clock Resource
 def getClockResource(abb):
     abb.setUrl("/ctrl/clock")
     return abb.getInfo()
@@ -111,14 +120,17 @@ def getClockActions(abb):
     abb.setUrl("/ctrl/clock?action=show")
     return abb.getInfo()
 
+#Operation on Timezone Resource
 def getTimezoneResource(abb):
     abb.setUrl("/ctrl/clock/timezone")
     return abb.getInfo()
 
+#Operation on Identity Resource
 def getIdentityResource(abb):
     abb.setUrl("/ctrl/identity")
     return abb.getInfo()
 
+#Operation on System Resource
 def getListOfInstalledSystems(abb):
     abb.setUrl("/ctrl/system")
     return abb.getInfo()
@@ -127,10 +139,12 @@ def getActionsOnSystem(abb):
     abb.setUrl("/ctrl/system?action=show")
     return abb.getInfo()
 
+#Operations on network Resource
 def getNetworkResource(abb):
     abb.setUrl("/ctrl/network")
     return abb.getInfo()
 
+#Operation on Backup Resource
 def getBackupResources(abb):
     abb.setUrl("/ctrl/backup")
     return abb.getInfo()
@@ -143,9 +157,11 @@ def getBackupState(abb):
     abb.setUrl("/ctrl/backup?action=backupstate")
     return abb.getInfo()
 
+#Operations on backup system information
 def getBackupSystemInformation(abb):
     return None
 
+#Operations on Compress Resource
 def getCompressResources(abb):
     abb.setUrl("/ctrl/compress")
     return abb.getInfo()
@@ -154,6 +170,16 @@ def getCompressActions(abb):
     abb.setUrl("/ctrl/compress?action=show")
     return abb.getInfo()
 
+#Operations on Diagnostics Resource
+def getDiagnosticsResources(abb):
+    abb.setUrl("/ctrl/diagnostics")
+    return abb.getInfo()
+
+def getDiagnosticsActions(abb):
+    abb.setUrl("/ctrl/diagnostics")
+    return abb.getInfo()
+
+#Operations on CtrlSafetyResource
 def getSafetyReources(abb):
     abb.setUrl("/ctrl/safety")
     return abb.getInfo()
@@ -174,10 +200,18 @@ def getSafetyConfigurations(abb):
     abb.setUrl("/ctrl/safety?resource=safety-config")
     return abb.getInfo()
 
+def getSafetyViolationInfo(abb):
+    abb.setUrl("/ctrl/safety?resource=violation-info")
+    return abb.getInfo()
+
+#Operations on options Resource
+
+#Operations on COmpatabile Resource
 def checkRobotwareCompatibility(abb,version):
     abb.setUrl("/ctrl/compatibility/"+version);
     return abb.getInfo()
 
+#Operation on Virtual Time
 def getVirtualTimeResources(abb):
     abb.setUrl("/ctrl/virtualtime")
     return abb.getInfo()
@@ -210,12 +244,94 @@ def getActionsOnVTState(abb):
     abb.setUrl("/ctrl/virtualtime/vtstate?action=show")
     return abb.getInfo()
 
+#File service
+def getFileServiceResources(abb):
+    abb.setUrl("/fileservice")
+    return abb.getInfo()
+
+#Get RobotWare services
+def getRobotWareServices(abb):
+    abb.setUrl("/rw")
+    return abb.getInfo()
+
+#CFG service
+def getCFGResources(abb):
+    abb.setUrl("/rw/cfg")
+    return abb.getInfo()
+
+#DIPC service
+def getDIPCResources(abb):
+    abb.setUrl("/rw/dipc")
+    return abb.getInfo()
+
+def getDIPCActions(abb):
+    abb.setUrl("/rw/dipc")
+    return abb.getInfo()
+
+#Operations on DIPC Queue
+def getDIPCQueue(abb):
+    return None
+
+#Elog service
+def getElogResources(abb):
+    abb.setUrl("/rw/elog")
+    return abb.getInfo()
+
+def getElogActions(abb):
+    abb.setUrl("/rw/elog")
+    return abb.getInfo()
+
+#Operations on elog domian
+def getElogMessagesInDomain(abb,domain_number):
+    abb.setUrl("/rw/elog/"+domain_number+"?lang=en")
+    return abb.getInfo()
+
+#IO service
+def getIOSystemResources(abb):
+    abb.setUrl("/rw/iosystem")
+    return abb.getInfo()
+
+#Operations on IO Networks
+def getIONetworksResources(abb):
+    abb.setUrl("/rw/iosytem/networks")
+    return abb.getInfo()
+def getActionsOnIONetworks(abb):
+    abb.setUrl("/rw/iosystem/networks?action=show")
+    return abb.getInfo()
+
+#Panel service
+def getPanelResources(abb):
+    abb.setUrl("/rw/panel")
+    return abb.getInfo()
+
+#Operations on Controller State Resource
+def getControllerState(abb):
+    abb.setUrl("/rw/panel/ctrlstate")
+    return abb.getInfo()
+
+#Operations on Operation Mode Resource
+def getOperationMode(abb):
+    abb.setUrl("/rw/panel/opmode")
+    return abb.getInfo()
+
+#Operatons on Speed Ratio Resource
+def getSpeedRatio(abb):
+    abb.setUrl("/rw/panel/speedratio")
+    return abb.getInfo()
+
+#Operations on Collision Detection State
+def getCollisionDetectionState(abb):
+    abb.setUrl("/rw/panel/coldetstate")
+    return abb.getInfo()
+
+
 #RAPID services##############################################
 
 def getRAPIDSystemResources(abb):
     abb.setUrl("/rw/rapid")
     return abb.getInfo()
 
+#Operation on RAPID execution
 def getRAPIDExecutionState(abb):
     abb.setUrl("/rw/rapid/execution")
     return abb.getInfo()
@@ -234,6 +350,7 @@ def stopRAPIDExecution(abb,data):
     abb.setData(data)
     return abb.postInfo()
 
+#Operations on RAPID modules
 def getRAPIDModulesAction(abb):
     abb.setUrl("/rw/rapid/modules?action=show")
     return abb.getInfo()
@@ -246,6 +363,7 @@ def getModPossibleAll(abb):
     abb.setUrl("/rw/rapid/modules?resource=mod-possible-all")
     return abb.getInfo()
 
+#Operations on rapid module
 def getSpecifiedRangeOfText(abb,module,task,startRow,startColum,endRow,endColum):
     abb.setUrl("/rw/rapid/modules/"+module+"?task="+task+"&startrow="+startRow+"&startcol="+startColum+"&endrow="+endRow+"&endcol="+endColum)
     return abb.getInfo()
@@ -262,6 +380,29 @@ def getChangeCount(abb,module,task):
     abb.setUrl("/rw/rapid/modules/"+module+"?resource=change-count&task="+task)
     return abb.getInfo()
 
+#Operations on RAPID Routine
+
+
+#System service
+def getSystemInformation(abb):
+    abb.setUrl("/rw/system")
+    return abb.getInfo()
+
+#Robotware return codes service
+def getListOfReturnCodes(abb):
+    abb.setUrl("/rw/retcode")
+    return abb.getInfo()
+
+def getDescriptionOfReturnCode(abb,code):
+    abb.setUrl("/rw/retcode?code="+code)
+    abb.getInfo()
+
+#Devices service
+def getDevicesTreeInformation(abb):
+    abb.setUrl("/rw/devices")
+    return abb.getInfo()
+
+#Motion system
 def getMotionSystem(abb):
     abb.setUrl("/rw/motionsystem")
     return abb.getInfo()
@@ -270,10 +411,31 @@ def getMotionSystemAction(abb):
     abb.setUrl("/rw/motionsystem?action=show")
     return abb.getInfo()
 
+#Operations on Error State
+def getMotionsytemErrorState(abb):
+    abb.setUrl("/rw/motionsystem/errorstate")
+    return abb.getInfo()
+
+#Operation on Motion Supervision
+def getMotionSupervision(abb,mechunit):
+    abb.setUrl("/rw/motionsystem/motionsupervision?mechunit="+mechunit)
+    return abb.getInfo()
+
+def getMotionSupervisionCollisionPredictionMode(abb):
+    abb.setUrl("/rw/motionsystem/motionsupervision?action=collison-prediction-mode")
+    return abb.getInfo()
+
+#Operations on Path Supervision
+def getPathSupervision(abb,mechunit):
+    abb.setUrl("/rw/motionsystem/pathsupervision?mechunit="+mechunit)
+    return abb.getInfo()
+
+#Operations on Mechunits
 def getMechunits(abb):
     abb.setUrl("/rw/motionsystem/mechunits")
     return abb.getInfo()
 
+#Operation on Mechunit
 def getMechunit(abb,mechunit,continueOnErr,resource):
     abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"?continue-on-err="+continueOnErr+"&resource="+resource)
     return abb.getInfo()
@@ -290,6 +452,11 @@ def getRobtarget(abb,mechunit,tool,wobj,coordinate):
     abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/robtarget?tool"+tool+"&wobj"+wobj+"&coordinate="+coordinate)
     return abb.getInfo()
 
+def getJointTarget(abb,mechunit):
+    abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/jointtarget")
+    return abb.getInfo()
+
+#Operations on Axes
 def getAxes(abb,mechunit):
     abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/axes")
     return abb.getInfo()
@@ -302,6 +469,11 @@ def getAxisActions(abb,mechunit,axis):
     abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/axes/"+axis+"?action=show&json=1")
     return abb.getInfo()
 
+def getAxisPose(abb,mechunit,axis):
+    abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/axes/"+axis+"?resource=axis-pose")
+    return abb.getInfo()
+
+#Operation on SMB Data
 def getSMBData(abb,mechunit):
     abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/smbdata")
     return abb.getInfo()
@@ -310,10 +482,12 @@ def getSMBDataActions(abb,mechunit):
     abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/smbdata?action=show")
     return abb.getInfo()
 
+#Operations on Motor Calib
 def getMotorCalibNames(abb,mechunit):
     abb.setUrl("/rw/motionsystem/mechunits/"+mechunit+"/motorcalib")
     return abb.getInfo()
 
+#Integrated Vision Service
 def getVisionManagerResource(abb):
     abb.setUrl("/rw/vision")
     return abb.getInfo()
@@ -326,32 +500,8 @@ def getIVCameraValidity(abb,cameraName):
     abb.setUrl("/rw/vision?resource=camera-validity&name="+cameraName)
     return abb.getInfo()
 
-#File service
-def getFileServiceResources(abb):
-    abb.setUrl("/fileservice")
-    return abb.getInfo()
 
-
-#System service
-def getSystemInformation(abb):
-    abb.setUrl("/rw/system")
-    return abb.getInfo()
-    
-#####################
-def test(abb,data):
-    abb.setUrl("/fileservice/$home/")
-    abb.setData(data)
-    abb.postInfo()
-    
-def subscribeOnResources(abb,data):
-    abb.setUrl("/subscription")
-    abb.setData(data)
-    abb.postInfo()
-
-def getDiagnosticsResources(abb):
-    abb.setUrl("/ctrl/diagnostics")
-    return abb.postInfo()
-
+##################################test#################################
 def readABBTest():
     abb=ABB()
     abb.setIP("127.0.0.1")
@@ -442,16 +592,59 @@ def readABBTest():
     if(resp!=""):
         xmlParserOfSystemInformation(resp)
 
+    #controller state
+    resp=getControllerState(abb)
+    if(resp!=''):
+        xmlParserOfControllerState(resp)
+
+    #controller operation mode
+    resp=getOperationMode(abb)
+    if(resp!=''):
+        xmlParserOfControllerOperationMode(resp)
+
+    #get Elog Message the controller
+    print(getElogMessagesInDomain(abb,"0"))
+
+    #diagnostics
+
+    #get RAPID Excecution state
+    resp=getRAPIDExecutionState(abb)
+    if(resp!=""):
+        xmlParserOfRAPIDExecutionState(resp)
+
+    #get Error state
+    resp=getMotionsytemErrorState(abb)
+    if(resp!=""):
+        xmlParserOfMotionsystemErrorState(resp)
+
+    #get Axis position
+    resp=getAxisPose(abb,"ROB_1","1")
+    if(resp!=""):
+        xmlParserOfAxisPose(resp)
+    resp=getAxisPose(abb,"ROB_1","2")
+    if(resp!=""):
+        xmlParserOfAxisPose(resp)
+    resp=getAxisPose(abb,"ROB_1","3")
+    if(resp!=""):
+        xmlParserOfAxisPose(resp)
+    resp=getAxisPose(abb,"ROB_1","4")
+    if(resp!=""):
+        xmlParserOfAxisPose(resp)
+    resp=getAxisPose(abb,"ROB_1","5")
+    if(resp!=""):
+        xmlParserOfAxisPose(resp)
+    resp=getAxisPose(abb,"ROB_1","6")
+    if(resp!=""):
+        xmlParserOfAxisPose(resp)
+
     #read the coordination of current point
     count=0
-    while count<10:
-        resp=getCartesianValue(abb,"ROB_1","too10","wobj1","Base","1")
+    while count<5:
+        resp=getCartesianValue(abb,"ROB_1","too10","wobj0","Base","0")
         if(resp!=''):
             xmlParserOfCartesianValue(resp)
         count=count+1
-        time.sleep(2)
-    
-        
+        time.sleep(1)        
     
     
 

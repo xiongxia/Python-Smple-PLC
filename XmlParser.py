@@ -56,6 +56,45 @@ def xmlParserOfSystemInformation(htmlResp):
     #print(abbSystemInformation.getSystemStarttm())
     print(abbSystemInformation.getValue())
 
+def xmlParserOfRAPIDExecutionState(htmlResp):
+    soup=BeautifulSoup(htmlResp,"html.parser")
+    abbRAPIDExecutionState=ABBRAPIDExecutionState()
+    abbRAPIDExecutionState.setCtrlexecstate(soup.find(name="span",attrs={"class":"ctrlexecstate"}).contents[0])
+    abbRAPIDExecutionState.setCycle(soup.find(name="span",attrs={"class":"cycle"}).contents[0])
+    print(abbRAPIDExecutionState.getValue())
+
+def xmlParserOfMotionsystemErrorState(htmlResp):
+    soup=BeautifulSoup(htmlResp,"html.parser")
+    abbErrorState=ABBMotionsystemErrorState()
+    abbErrorState.setErrState(soup.find(name="span",attrs={"class":"err-state"}).contents[0])
+    abbErrorState.setErrCount(soup.find(name="span",attrs={"class":"err-count"}).contents[0])
+    print(abbErrorState.getValue())
+
+def xmlParserOfControllerState(htmlResp):
+    soup=BeautifulSoup(htmlResp,"html.parser")
+    abbControllerState=ABBControllerState()
+    abbControllerState.setCtrlstate(soup.find(name="span",attrs={"class":"ctrlstate"}).contents[0])
+    print(abbControllerState.getValue())
+
+def xmlParserOfControllerOperationMode(htmlResp):
+    soup=BeautifulSoup(htmlResp,"html.parser")
+    abbControllerOperationMode=ABBControllerOperationMode()
+    abbControllerOperationMode.setOpmode(soup.find(name="span",attrs={"class":"opmode"}).contents[0])
+    print(abbControllerOperationMode.getValue())
+
+def xmlParserOfAxisPose(htmlResp):
+    soup=BeautifulSoup(htmlResp,"html.parser")
+    abbAxisPose=ABBAxisPose()
+    x=soup.find(name="span",attrs={"class":"x"}).contents[0]
+    y=soup.find(name="span",attrs={"class":"y"}).contents[0]
+    z=soup.find(name="span",attrs={"class":"z"}).contents[0]
+    q1=soup.find(name="span",attrs={"class":"q1"}).contents[0]
+    q2=soup.find(name="span",attrs={"class":"q2"}).contents[0]
+    q3=soup.find(name="span",attrs={"class":"q3"}).contents[0]
+    q4=soup.find(name="span",attrs={"class":"q4"}).contents[0]
+    abbAxisPose.setValue(x,y,z,q1,q2,q3,q4)
+    print(abbAxisPose.getValue())
+
     
 def test():
     htmlResp = """
