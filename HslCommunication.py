@@ -2964,9 +2964,9 @@ class SiemensS7Net(NetworkDeviceBase):
 
 		# 分析结果
 		receiveCount = 1
-		if read.Content.Length >= 21 and read.Content[20] == 1 :
+		if len(read.Content) >= 21 and read.Content[20] == 1 :
 			buffer = bytearray(receiveCount)
-			if 22 < read.Content.Length :
+			if 22 < len(read.Content) :
 				if read.Content[21] == 0xFF and read.Content[22] == 0x03:
 					# 有数据
 					buffer[0] = read.Content[25]

@@ -1,0 +1,61 @@
+[2018-10-23 16:05:24] [INFO] EtherNetIP.read_by_tag:read succeed
+ read data:
+[2018-10-23 16:05:24] [INFO] [[0, 101, 21, 55, 0, 0, 0, 0, 0, 0, 0]]
+[2018-10-23 16:07:15] [INFO] EtherNetIP.read_by_tag:read succeed
+
+[2018-10-23 16:26:24] [INFO] EtherNetIP.read_by_tag:read succeed
+
+[2018-10-23 16:27:56] [INFO] EtherNetIP.read_by_tag:read succeed
+
+[2018-10-23 16:28:56] [INFO] EtherNetIP.read_by_tag:read succeed
+
+[2018-10-23 16:31:16] [INFO] EtherNetIP.read_by_tag:read succeed
+
+[2018-10-23 16:31:16] [INFO] read data:[0, 101, 21, 55, 0, 0, 0, 0, 0, 0, 0]
+[2018-10-23 16:31:40] [INFO] EtherNetIP.read_by_tag:read succeed
+
+[2018-10-23 16:31:40] [INFO] read data:[0, 101, 21, 55, 0, 0, 0, 0, 0, 0, 0]
+[2018-10-23 17:01:38] [INFO] EtherNetIP.read_by_tag:read succeed
+
+[2018-10-23 17:01:38] [INFO] read data:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+[2018-10-23 17:02:34] [INFO] EtherNetIP.read_by_tag:read succeed
+
+[2018-10-23 17:02:34] [INFO] read data:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+[2018-10-23 17:10:14] [INFO] EtherNetIP.read_by_tag:read succeed
+
+[2018-10-23 17:10:14] [INFO] read data:[1, 2, 3, 4]
+[2018-10-23 17:11:50] [INFO] EtherNetIP.write_by_tag:write succeed
+
+[2018-10-23 17:11:50] [INFO] read data:[1, 2, 3, 4]
+[2018-10-23 17:24:12] [INFO] EtherNetIP.write_by_tag:write succeed
+
+[2018-10-23 17:24:12] [INFO] write data:[1, 2, 3, 4]
+[2018-10-23 17:24:50] [INFO] EtherNetIP.write_by_tag:write succeed
+
+[2018-10-23 17:24:50] [INFO] write data:[1, 2, 3, 4]
+[2018-10-23 17:25:07] [INFO] EtherNetIP.write_by_tag:write succeed
+
+[2018-10-23 17:25:07] [INFO] write data:[1, 2, 3, 4]
+[2018-10-23 17:25:31] [INFO] EtherNetIP.read_by_tag:read succeed
+
+[2018-10-23 17:25:31] [INFO] read data:[1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0]
+[2018-10-23 17:26:10] [ERROR] EtherNetIP.read_by_tag:read error!!!!
+
+[2018-10-23 17:28:40] [INFO] EtherNetIP.read_by_tag:read succeed
+
+[2018-10-23 17:28:40] [INFO] read data:['']
+[2018-10-23 17:49:58] [INFO] EtherNetIP.read_by_class:read succeed
+
+[2018-10-23 17:49:58] [INFO] read data:[12]
+[2018-10-23 17:50:22] [INFO] EtherNetIP.write_by_class:write succeed
+
+[2018-10-23 17:50:22] [INFO] write data:[12] [12]
+[2018-10-23 17:50:36] [INFO] EtherNetIP.read_by_class:read succeed
+
+[2018-10-23 17:50:36] [INFO] read data:[12]
+[2018-10-23 17:51:40] [INFO] EtherNetIP.write_by_class:write succeed
+
+[2018-10-23 17:51:40] [INFO] write data:[0] [0]
+[2018-10-23 17:51:49] [INFO] EtherNetIP.read_by_tag:read succeed
+
+[2018-10-23 17:51:49] [INFO] read data:[0, 99, 12, 4, 0, 0, 0, 0, 0, 0, 0]

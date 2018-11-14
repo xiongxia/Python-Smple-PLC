@@ -59,3 +59,120 @@
 [2018-10-23 17:51:49] [INFO] EtherNetIP.read_by_tag:read succeed
 
 [2018-10-23 17:51:49] [INFO] read data:[0, 99, 12, 4, 0, 0, 0, 0, 0, 0, 0]
+[2018-11-13 17:09:35] [DEBUG] []
+[2018-11-13 17:09:36] [DEBUG] no plc need to update heart
+[2018-11-13 17:09:40] [DEBUG] readSiemensS7
+[2018-11-13 17:09:40] [DEBUG] connect success
+[2018-11-13 17:09:40] [DEBUG] no plc
+[2018-11-13 17:09:50] [DEBUG] readSiemensS7
+[2018-11-13 17:09:50] [DEBUG] connect success
+[2018-11-13 17:09:50] [DEBUG] no plc
+[2018-11-14 10:38:58] [DEBUG] []
+[2018-11-14 10:38:59] [DEBUG] no plc need to update heart
+[2018-11-14 10:39:03] [DEBUG] readSiemensS7
+[2018-11-14 10:39:13] [DEBUG] readSiemensS7
+[2018-11-14 10:39:23] [DEBUG] readSiemensS7
+[2018-11-14 10:39:33] [DEBUG] readSiemensS7
+[2018-11-14 10:39:44] [DEBUG] readSiemensS7
+[2018-11-14 10:39:54] [DEBUG] readSiemensS7
+[2018-11-14 10:39:59] [DEBUG] no plc need to update heart
+[2018-11-14 10:40:04] [DEBUG] readSiemensS7
+[2018-11-14 10:40:14] [DEBUG] readSiemensS7
+[2018-11-14 10:40:24] [DEBUG] readSiemensS7
+[2018-11-14 10:40:34] [DEBUG] readSiemensS7
+[2018-11-14 10:40:44] [DEBUG] readSiemensS7
+[2018-11-14 10:40:54] [DEBUG] readSiemensS7
+[2018-11-14 10:40:59] [DEBUG] no plc need to update heart
+[2018-11-14 10:41:04] [DEBUG] readSiemensS7
+[2018-11-14 10:41:14] [DEBUG] readSiemensS7
+[2018-11-14 10:41:24] [DEBUG] readSiemensS7
+[2018-11-14 10:41:34] [DEBUG] readSiemensS7
+[2018-11-14 10:41:44] [DEBUG] readSiemensS7
+[2018-11-14 10:41:54] [DEBUG] readSiemensS7
+[2018-11-14 10:41:59] [DEBUG] no plc need to update heart
+[2018-11-14 10:42:04] [DEBUG] readSiemensS7
+[2018-11-14 10:42:14] [DEBUG] readSiemensS7
+[2018-11-14 10:42:24] [DEBUG] readSiemensS7
+[2018-11-14 10:42:34] [DEBUG] readSiemensS7
+[2018-11-14 10:42:44] [DEBUG] readSiemensS7
+[2018-11-14 10:42:54] [DEBUG] readSiemensS7
+[2018-11-14 10:42:59] [DEBUG] no plc need to update heart
+[2018-11-14 10:43:04] [DEBUG] readSiemensS7
+[2018-11-14 10:43:14] [DEBUG] readSiemensS7
+[2018-11-14 10:43:24] [DEBUG] readSiemensS7
+[2018-11-14 10:43:34] [DEBUG] readSiemensS7
+[2018-11-14 10:43:44] [DEBUG] readSiemensS7
+[2018-11-14 10:43:54] [DEBUG] readSiemensS7
+[2018-11-14 10:43:59] [DEBUG] no plc need to update heart
+[2018-11-14 10:44:04] [DEBUG] readSiemensS7
+[2018-11-14 10:44:14] [DEBUG] readSiemensS7
+[2018-11-14 10:44:24] [DEBUG] readSiemensS7
+[2018-11-14 10:44:34] [DEBUG] readSiemensS7
+[2018-11-14 10:44:44] [DEBUG] readSiemensS7
+[2018-11-14 10:44:54] [DEBUG] readSiemensS7
+[2018-11-14 10:44:59] [DEBUG] no plc need to update heart
+[2018-11-14 10:45:04] [DEBUG] readSiemensS7
+[2018-11-14 10:45:14] [DEBUG] readSiemensS7
+[2018-11-14 10:45:24] [DEBUG] readSiemensS7
+[2018-11-14 10:45:34] [DEBUG] readSiemensS7
+[2018-11-14 10:45:44] [DEBUG] readSiemensS7
+[2018-11-14 10:45:54] [DEBUG] readSiemensS7
+[2018-11-14 10:45:59] [DEBUG] no plc need to update heart
+[2018-11-14 10:46:04] [DEBUG] readSiemensS7
+[2018-11-14 10:46:14] [DEBUG] readSiemensS7
+[2018-11-14 10:46:25] [DEBUG] readSiemensS7
+[2018-11-14 10:46:35] [DEBUG] readSiemensS7
+[2018-11-14 10:46:45] [DEBUG] readSiemensS7
+[2018-11-14 10:46:55] [DEBUG] readSiemensS7
+[2018-11-14 10:46:59] [DEBUG] no plc need to update heart
+[2018-11-14 10:47:05] [DEBUG] readSiemensS7
+[2018-11-14 10:47:15] [DEBUG] readSiemensS7
+[2018-11-14 10:47:25] [DEBUG] readSiemensS7
+[2018-11-14 10:47:35] [DEBUG] readSiemensS7
+[2018-11-14 10:47:45] [DEBUG] readSiemensS7
+[2018-11-14 10:47:55] [DEBUG] readSiemensS7
+[2018-11-14 10:47:59] [DEBUG] no plc need to update heart
+[2018-11-14 10:48:05] [DEBUG] readSiemensS7
+[2018-11-14 10:48:15] [DEBUG] readSiemensS7
+[2018-11-14 10:48:25] [DEBUG] readSiemensS7
+[2018-11-14 10:48:35] [DEBUG] readSiemensS7
+[2018-11-14 10:48:45] [DEBUG] readSiemensS7
+[2018-11-14 10:48:55] [DEBUG] readSiemensS7
+[2018-11-14 10:48:59] [DEBUG] no plc need to update heart
+[2018-11-14 10:49:05] [DEBUG] readSiemensS7
+[2018-11-14 10:49:15] [DEBUG] readSiemensS7
+[2018-11-14 10:49:25] [DEBUG] readSiemensS7
+[2018-11-14 10:49:35] [DEBUG] readSiemensS7
+[2018-11-14 10:49:45] [DEBUG] readSiemensS7
+[2018-11-14 10:49:55] [DEBUG] readSiemensS7
+[2018-11-14 10:49:59] [DEBUG] no plc need to update heart
+[2018-11-14 10:50:05] [DEBUG] readSiemensS7
+[2018-11-14 10:50:15] [DEBUG] readSiemensS7
+[2018-11-14 10:50:25] [DEBUG] readSiemensS7
+[2018-11-14 10:50:35] [DEBUG] readSiemensS7
+[2018-11-14 10:50:45] [DEBUG] readSiemensS7
+[2018-11-14 10:50:55] [DEBUG] readSiemensS7
+[2018-11-14 10:50:59] [DEBUG] no plc need to update heart
+[2018-11-14 10:51:05] [DEBUG] readSiemensS7
+[2018-11-14 10:51:15] [DEBUG] readSiemensS7
+[2018-11-14 10:51:25] [DEBUG] readSiemensS7
+[2018-11-14 10:51:35] [DEBUG] readSiemensS7
+[2018-11-14 17:27:43] [DEBUG] []
+[2018-11-14 17:27:44] [DEBUG] no plc need to update heart
+[2018-11-14 17:27:48] [DEBUG] readSiemensS7
+[2018-11-14 17:28:44] [DEBUG] no plc need to update heart
+[2018-11-14 17:29:17] [DEBUG] []
+[2018-11-14 17:29:18] [DEBUG] no plc need to update heart
+[2018-11-14 17:29:22] [DEBUG] readSiemensS7
+[2018-11-14 17:30:18] [DEBUG] no plc need to update heart
+[2018-11-14 17:31:18] [DEBUG] no plc need to update heart
+[2018-11-14 17:32:18] [DEBUG] []
+[2018-11-14 17:32:19] [DEBUG] no plc need to update heart
+[2018-11-14 17:32:23] [DEBUG] readSiemensS7
+[2018-11-14 17:32:23] [DEBUG] no plc
+[2018-11-14 17:32:33] [DEBUG] readSiemensS7
+[2018-11-14 17:32:33] [DEBUG] no plc
+[2018-11-14 17:32:43] [DEBUG] readSiemensS7
+[2018-11-14 17:32:43] [DEBUG] no plc
+[2018-11-14 17:32:53] [DEBUG] readSiemensS7
+[2018-11-14 17:32:53] [DEBUG] no plc
