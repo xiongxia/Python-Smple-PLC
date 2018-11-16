@@ -298,12 +298,16 @@ def readSiemensS7Cyclic():
     #open LOG file
     LOG=Logger('aicotinlog',1)
     LOG.debug('readSiemensS7')
+    
+    dataSql=MYSQL("aicotin.db")
+    
     global readSiemensS7Timer
     #get sample frequency from database
+    controllerInfo=dataSql.select('ControllerInfo')
+    collectionFreq=controllerInfo[0][2]
     readSiemensS7Timer = Timer(10, readSiemensS7Cyclic)
     readSiemensS7Timer.start()
     
-    dataSql=MYSQL("aicotin.db")
     plcInfo=dataSql.select('Cmdtable')
     #print(len(plcInfo))
     if(len(plcInfo)>0):
@@ -317,16 +321,14 @@ def readSiemensS7Cyclic():
                 dataType=item[3]
                 dataBits=item[4]
                 quotaId=item[5]
-                siemensDevice=SiemensS7("192.168.2.5",SiemensPLCS.S1200)
-                value=siemensDevice.readSiemensS7Bool("DB1.0")
+                siemensDevice=SiemensS7(ipAddress,SiemensPLCS.S1200)
+                value=siemensDevice.readSiemensS7Bool(address)
+                siemensDevice.closeConnect()
                 if(value !=''):
-                    if(value.IsSuccess==True):
-                        LOG.debug(deviceId+':read PLC success, save to database')
-                        dataSql.insert('Data',(deviceId,quotaId,value.Content[0]))
-                    else:
-                        LOG.debug(deviceId+':read PLC fail')
+                    LOG.debug(deviceId+':read PLC success, save to database')
+                    dataSql.insert('Data',(deviceId,quotaId,value))
                 else:
-                    LOG.debug(deviceId+':connect PLC fail')
+                    LOG.debug(deviceId+':read PLC fail')
             else:
                 LOG.debug('read no plc info from table')
     else:

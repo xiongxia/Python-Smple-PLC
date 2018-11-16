@@ -1,7 +1,5 @@
-from HttpAccessCloud import uploadHeartTimer
-from HttpAccessCloud import updateConfigTimer
+from HttpAccessCloud import *
 from SiemensS7 import readSiemensS7Timer
-from HttpAccessCloud import uploadDataTimer
 from SQL import *
 from Log import *
 import sys
@@ -12,23 +10,25 @@ if __name__ == "__main__":
     LOG=Logger('aicotinlog',0)
 
     #init database
-    MYSQL("aicotin.db")
+    MYSQL('aicotin.db')
     
-    deviceIdSql=MYSQL("aicotin.db")
+    deviceIdSql=MYSQL('aicotin.db')
 	
     if len(sys.argv)>1:
-        deviceIdSql.delete('DeviceID')
-        LOG.debug('update DeviceId')
-        deviceId=sys.argv[1]
+        deviceIdSql.delete('IMEIInfo')
+        LOG.debug('update IMEIInfo')
+        IMEIValue=sys.argv[1]
         serverIndex= sys.argv[2]
         if serverIndex=='1':
-            deviceIdSql.insert('DeviceID',(deviceId,'http://test-collection.ycxz-china.com'))
+            deviceIdSql.insert('IMEIInfo',(IMEIValue,'http://test-collection.ycxz-china.com'))
         else:
-            deviceIdSql.insert('DeviceID',(deviceId,'http://online-collection.ycxz-china.com'))
-        LOG.debug(deviceIdSql.select('DeviceID'))
+            deviceIdSql.insert('IMEIInfo',(IMEIValue,'http://online-collection.ycxz-china.com'))
+        LOG.debug(deviceIdSql.select('IMEIInfo'))
     else:
-        LOG.debug(deviceIdSql.select('DeviceID'))
-                                                  
+        LOG.debug(deviceIdSql.select('IMEIInfo'))
+
+    #getControllerInfo
+    getControllerInfoTimer()
     #upload heart 
     uploadHeartTimer()
     #update configuration

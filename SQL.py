@@ -8,7 +8,9 @@ class MYSQL:
 	def __init__(self, path):
 		self.conn = sqlite3.connect(path)
 		self.c = self.conn.cursor()
+		self.c.execute("create table if not exists IMEIInfo (IMEI,serverAddr)")
 		self.c.execute("create table if not exists DeviceID (ID,device)")
+		self.c.execute("create table if not exists ControllerInfo (ID,name,collectionFrequency,uploadFrequency)")
 		self.c.execute("create table if not exists Cmdtable (ID,name,command,parsetype,startadder,datanum,keep,quotaId,mode)")
 		self.c.execute("create table if not exists Data (ID,info,value)")
 		self.conn.commit()
