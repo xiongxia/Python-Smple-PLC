@@ -12,11 +12,15 @@ class SiemensS7:
         #close connect first
         self.siemens.ConnectClose()
         self.isConnect=False
+        #log
+        self.LOG=Logger('aicotinlog',1)
         if self.siemens.ConnectServer().IsSuccess == False:
             print("connect fail")
+            self.LOG.debug("connect fail")
             self.isConnect=False
         else:
             print("connect success")
+            self.LOG.debug("connect success"+self.ip)
             self.isConnect=True
 
     def closeConnect(self):
@@ -36,42 +40,42 @@ class SiemensS7:
             
     #read Siemens PLC, input para ,dataType,address,dataBity
     def readSiemensS7(self,dataType,address,length=None):
-        #open LOG file
-        LOG=Logger('aicotinlog',1)
-        
         siemens = self.siemens
         #connect server
         if self.isConnect == True:
-            LOG.debug("connect success")
+            self.LOG.debug("connect success")
             print("connect success")
             if(dataType=="byte"):
                 return siemens.ReadByte(address)
             elif(dataType=="bool"):
                 print("read bool")
+                self.LOG.debug("read bool")
                 return siemens.ReadBool(address)
             elif(dataType=="Int16"):
-                return siemens.ReadInt16(address)
+                self.LOG.debug("read Int16")
+                return siemens.ReadInt16(address,length)
             elif(dataType=="UInt16"):
                 print("read UInt16")
-                return siemens.ReadUInt16(address)
+                return siemens.ReadUInt16(address,length)
             elif(dataType=="Int32"):                 
-                return siemens.ReadInt32(address)
+                return siemens.ReadInt32(address,length)
             elif(dataType=="UInt32"):
-                return siemens.ReadUInt32(address)
+                return siemens.ReadUInt32(address,length)
             elif(dataType=="Float"):                 
-                return siemens.ReadFloat(address)
+                return siemens.ReadFloat(address,length)
             elif(dataType=="Int64"):                 
-                return siemens.ReadInt64(address)
+                return siemens.ReadInt64(address,length)
             elif(dataType=="UInt64"):
-                return siemens.ReadUInt64(address)
+                return siemens.ReadUInt64(address,length)
             elif(dataType=="Double"):     
-                return siemens.ReadDouble(address)  
+                return siemens.ReadDouble(address,length)  
             elif(dataType=="String"):
                 return siemens.ReadString(address,length)
             else:
-                return siemens.ReadByte(address)
+                return siemens.ReadByte(address,length)
         else:
             print("connec fail")
+            self.LOG.debug("connec fail")
             return ''
 
     def readSiemensS7Bool(self,address):
@@ -94,100 +98,191 @@ class SiemensS7:
         else:
             return ''
 
-    def readSiemensS7UInt16(self,address):
-        value=self.readSiemensS7("UInt16",address)
-        if(value!=''):
-            if(value.IsSuccess):
-                return value.Content
+    def readSiemensS7UInt16(self,address,length=None):
+        if(length!=None):
+            value=self.readSiemensS7("UInt16",address,length)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
             else:
                 return ''
         else:
-            return ''
+            value=self.readSiemensS7("UInt16",address)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
+            else:
+                return ''
 
-    def readSiemensS7Int16(self,address):
-        value=self.readSiemensS7("Int16",address)
-        if(value!=''):
-            if(value.IsSuccess):
-                return value.Content
+    def readSiemensS7Int16(self,address,length=None):
+        if(length!=None):
+            value=self.readSiemensS7("Int16",address,length)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
             else:
                 return ''
         else:
-            return ''
+            value=self.readSiemensS7("Int16",address)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
+            else:
+                return ''
         
-    def readSiemensS7Int32(self,address):
-        value=self.readSiemensS7("Int32",address)
-        if(value!=''):
-            if(value.IsSuccess):
-                return value.Content
+    def readSiemensS7Int32(self,address,length=None):
+        if(length!=None):
+            value=self.readSiemensS7("Int32",address,length)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
             else:
                 return ''
         else:
-            return ''
+            value=self.readSiemensS7("Int32",address)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
+            else:
+                return ''            
         
-    def readSiemensS7UInt32(self,address):
-        value=self.readSiemensS7("UInt32",address)
-        if(value!=''):
-            if(value.IsSuccess):
-                return value.Content
+    def readSiemensS7UInt32(self,address,length=None):
+        if(length!=None):
+            value=self.readSiemensS7("UInt32",address,length)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
             else:
                 return ''
         else:
-            return ''
+            value=self.readSiemensS7("UInt32",address)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
+            else:
+                return ''
 
-    def readSiemensS7Float(self,address):
-        value=self.readSiemensS7("Float",address)
-        if(value!=''):
-            if(value.IsSuccess):
-                return value.Content
+    def readSiemensS7Float(self,address,length=None):
+        if(length!=None):
+            value=self.readSiemensS7("Float",address,length)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
             else:
                 return ''
         else:
-            return ''
+            value=self.readSiemensS7("Float",address)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
+            else:
+                return ''            
 
-    def readSiemensS7Int64(self,address):
-        value=self.readSiemensS7("Int64",address)
-        if(value!=''):
-            if(value.IsSuccess):
-                return value.Content
+    def readSiemensS7Int64(self,address,length=None):
+        if(length!=None):
+            value=self.readSiemensS7("Int64",address)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
             else:
                 return ''
         else:
-            return ''
+            value=self.readSiemensS7("Int64",address)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
+            else:
+                return ''           
 
-    def readSiemensS7UInt64(self,address):
-        value=self.readSiemensS7("UInt64",address)
-        if(value!=''):
-            if(value.IsSuccess):
-                return value.Content
+    def readSiemensS7UInt64(self,address,length=None):
+        if(length!=None):
+            value=self.readSiemensS7("UInt64",address,length)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
             else:
                 return ''
         else:
-            return ''
+            value=self.readSiemensS7("UInt64",address)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
+            else:
+                return '' 
 
-    def readSiemensS7Double(self,address):
-        value=self.readSiemensS7("Double",address)
-        if(value!=''):
-            if(value.IsSuccess):
-                return value.Content
+    def readSiemensS7Double(self,address,length=None):
+        if(length!=None):
+            value=self.readSiemensS7("Double",address,length)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
             else:
                 return ''
         else:
-            return ''
+            value=self.readSiemensS7("Double",address)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
+            else:
+                return '' 
 
-    def readSiemensS7String(self,address,length):
-        value=self.readSiemensS7("String",address,length)
-        if(value!=''):
-            if(value.IsSuccess):
-                return value.Content
+    def readSiemensS7String(self,address,length=None):
+        if(length!=None):
+            value=self.readSiemensS7("String",address,length)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
             else:
                 return ''
         else:
-            return ''
+            value=self.readSiemensS7("String",address,1)
+            if(value!=''):
+                if(value.IsSuccess):
+                    return value.Content
+                else:
+                    return ''
+            else:
+                return '' 
         
     def writeSiemensS7(self,dataType,address,value):
         siemens=self.siemens
         if self.isConnect == True:
             print("connect success")
+            self.LOG.debug("connect success")
             if(dataType=="byte"):
                 return siemens.WriteByte(address,value)
             elif(dataType=="bool"):
@@ -215,84 +310,152 @@ class SiemensS7:
                 return siemens.WriteByte(address,value)
         else:
             print("connect fail")
+            self.LOG.debug("connect fail")
             return ''
 
     def writeSiemensS7Bool(self,address,value):
         value=self.writeSiemensS7("bool",address,value)
-        if value.IsSuccess == True:
-            print("write success")
+        if(value!=''):
+            if value.IsSuccess == True:
+                print("write success")
+                self.LOG.debug("write success")
+            else:
+                print(value.Message)
+                self.LOG.debug(value.Message)
         else:
-            print(value.Message)
+            print("write fail")
+            self.LOG.debug("write fail")
+
 
     def writeSiemensS7Byte(self,address,value):
         value=self.writeSiemensS7("byte",address,value)
-        if value.IsSuccess == True:
-            print("write success")
+        if(value!=''):
+            if value.IsSuccess == True:
+                print("write success")
+                self.LOG.debug("write success")
+            else:
+                print(value.Message)
+                self.LOG.debug(value.Message)
         else:
-            print(value.Message)
+            print("write fail")
+            self.LOG.debug("write fail")
 
     def writeSiemensS7Int16(self,address,value):
         value=self.writeSiemensS7("Int16",address,value)
-        if value.IsSuccess == True:
-            print("write success")
+        if(value!=''):
+            if value.IsSuccess == True:
+                print("write success")
+                self.LOG.debug("write success")
+            else:
+                print(value.Message)
+                self.LOG.debug(value.Message)
         else:
-            print(value.Message)
+            print("write fail")
+            self.LOG.debug("write fail")
 
     def writeSiemensS7UInt16(self,address,value):
         value=self.writeSiemensS7("UInt16",address,value)
-        if value.IsSuccess == True:
-            print("write success")
+        if(value!=''):
+            if value.IsSuccess == True:
+                print("write success")
+                self.LOG.debug("write success")
+            else:
+                print(value.Message)
+                self.LOG.debug(value.Message)
         else:
-            print(value.Message)
+            print("write fail")
+            self.LOG.debug("write fail")
 
     def writeSiemensS7Int32(self,address,value):
         value=self.writeSiemensS7("Int32",address,value)
-        if value.IsSuccess == True:
-            print("write success")
+        if(value!=''):
+            if value.IsSuccess == True:
+                print("write success")
+                self.LOG.debug("write success")
+            else:
+                print(value.Message)
+                self.LOG.debug(value.Message)
         else:
-            print(value.Message)
+            print("write fail")
+            self.LOG.debug("write fail")
 
     def writeSiemensS7UInt32(self,address,value):
         value=self.writeSiemensS7("UInt32",address,value)
-        if value.IsSuccess == True:
-            print("write success")
+        if(value!=''):
+            if value.IsSuccess == True:
+                print("write success")
+                self.LOG.debug("write success")
+            else:
+                print(value.Message)
+                self.LOG.debug(value.Message)
         else:
-            print(value.Message)
+            print("write fail")
+            self.LOG.debug("write fail")
 
     def writeSiemensS7Int64(self,address,value):
         value=self.writeSiemensS7("Int64",address,value)
-        if value.IsSuccess == True:
-            print("write success")
+        if(value!=''):
+            if value.IsSuccess == True:
+                print("write success")
+                self.LOG.debug("write success")
+            else:
+                print(value.Message)
+                self.LOG.debug(value.Message)
         else:
-            print(value.Message)
+            print("write fail")
+            self.LOG.debug("write fail")
 
     def writeSiemensS7UInt64(self,address,value):
         value=self.writeSiemensS7("UInt64",address,value)
-        if value.IsSuccess == True:
-            print("write success")
+        if(value!=''):
+            if value.IsSuccess == True:
+                print("write success")
+                self.LOG.debug("write success")
+            else:
+                print(value.Message)
+                self.LOG.debug(value.Message)
         else:
-            print(value.Message)
+            print("write fail")
+            self.LOG.debug("write fail")
 
     def writeSiemensS7Float(self,address,value):
         value=self.writeSiemensS7("Float",address,value)
-        if value.IsSuccess == True:
-            print("write success")
+        if(value!=''):
+            if value.IsSuccess == True:
+                print("write success")
+                self.LOG.debug("write success")
+            else:
+                print(value.Message)
+                self.LOG.debug(value.Message)
         else:
-            print(value.Message)
+            print("write fail")
+            self.LOG.debug("write fail")
 
     def writeSiemensS7Double(self,address,value):
         value=self.writeSiemensS7("Double",address,value)
-        if value.IsSuccess == True:
-            print("write success")
+        if(value!=''):
+            if value.IsSuccess == True:
+                print("write success")
+                self.LOG.debug("write success")
+            else:
+                print(value.Message)
+                self.LOG.debug(value.Message)
         else:
-            print(value.Message)
+            print("write fail")
+            self.LOG.debug("write fail")
 
     def writeSiemensS7String(self,address,value):
         value=self.writeSiemensS7("String",address,value)
-        if value.IsSuccess == True:
-            print("write success")
+        if(value!=''):
+            if value.IsSuccess == True:
+                print("write success")
+                self.LOG.debug("write success")
+            else:
+                print(value.Message)
+                self.LOG.debug(value.Message)
         else:
-            print(value.Message)
+            print("write fail")
+            self.LOG.debug("write fail")
 
 def readSiemensS7Cyclic():
     #open LOG file
@@ -391,7 +554,7 @@ def testCase():
     dataByte=siemensDevice.readSiemensS7Byte("DB1.1")
     
     siemensDevice.writeSiemensS7Int16("DB3.0",33)
-    dataInt16=siemensDevice.readSiemensS7Int16("DB3.0")
+    dataInt16=siemensDevice.readSiemensS7Int16("DB3.0",2)
     siemensDevice.writeSiemensS7UInt16("DB3.0",6565)
     dataUInt16=siemensDevice.readSiemensS7UInt16("DB3.0")
     
@@ -403,18 +566,20 @@ def testCase():
     
     siemensDevice.writeSiemensS7Int64("DB4.0",31)
     dataInt64=siemensDevice.readSiemensS7Int64("DB4.0") 
+    dataUInt322=siemensDevice.readSiemensS7UInt32("DB4.0",2)
     
     siemensDevice.writeSiemensS7UInt64("DB4.0",34)
     dataUInt64=siemensDevice.readSiemensS7UInt64("DB4.0")
 
     siemensDevice.writeSiemensS7Float("DB4.0",34.09)
-    dataFloat=siemensDevice.readSiemensS7Float("DB4.0")
+    dataFloat=siemensDevice.readSiemensS7Float("DB4.0",2)
 
     siemensDevice.writeSiemensS7Double("DB4.0",34.09)
     dataDouble=siemensDevice.readSiemensS7Double("DB4.0")
 
     siemensDevice.writeSiemensS7String("DB4.0",'abcdefgh')
     dataString=siemensDevice.readSiemensS7String("DB4.0",8)
+    dataString1=siemensDevice.readSiemensS7String("DB4.0")
 
     data01=siemensDevice.readSiemensS7Bool("DB5.0.1")
     data02=siemensDevice.readSiemensS7Bool("DB5.0.2")
@@ -440,9 +605,11 @@ def testCase():
     print(dataInt32)
     print(dataUInt64)
     print(dataInt64)
+    print(dataUInt322)
     print(dataFloat)
     print(dataDouble)
     print(dataString)
+    print(dataString1)
     
 
     siemensDevice.closeConnect()
