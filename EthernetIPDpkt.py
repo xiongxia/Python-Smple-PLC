@@ -60,7 +60,8 @@ ENIP_UDP_PORT   = 2222
 #EtherNetIP adaption of CIP
 #5-3.3 P64
 #/* Common Services */ service
-
+#EIP-CIP-V1-1
+#5-42-3 P426
 CI_SRV_GET_ALL         = 0x01
 
 CI_SRV_SET_ATTR_ALL    = 0x02
@@ -112,7 +113,9 @@ CI_SRV_UNCONN_SEND     = 0x52
 CI_SRV_FORWARD_OPEN    = 0x54
 
 
-
+#EIP-CIP-V1-1.0
+#3-4 P42
+#5-1 P149
 #/* List of Objects */ class
 
 CIP_OBJ_IDENTITY       = 0x01
@@ -152,7 +155,8 @@ CIP_OBJ_TCPIP          = 0xF5
 CIP_OBJ_ETHERNET_LINK  = 0xF6
 
 
-
+#EIP-CIP-V1-1.0
+#P105
 #/* The following are CIP (Ethernet/IP) Generic error codes */
 
 CIP_ROUTER_ERROR_SUCCESS                   = 0x00  # We done good...
@@ -1064,7 +1068,6 @@ class EtherNetIPSocket(object):
         pkt = EncapsulationPacket(command=EncapsulationPacket.ENCAP_CMD_LISTSERVICES,
 
                                   sender_context=context.to_bytes(8, byteorder='big'))
-        print("pkt"+str(pkt))
 
         self.sock.send(pkt.pack())
 
@@ -1073,22 +1076,17 @@ class EtherNetIPSocket(object):
         if len(inp) != 0:
 
             data = self.sock.recv(1024)
-            print("data = self.sock.recv(1024):"+str(data))
 
             pkt = EncapsulationPacket()
-            print("pkt = EncapsulationPacket():"+str(pkt))
 
             pkt.unpack(data)
-            print("pkt.unpack(data):"+str(pkt.unpack(data)))
 
             if pkt.status == EncapsulationPacket.ENCAP_STATUS_SUCCESS and pkt.command == EncapsulationPacket.ENCAP_CMD_LISTSERVICES:
                 csd = CommandSpecificData(pkt.data)
-                print("csd:"+str(csd))
 
                 if csd.type_id == CommandSpecificData.TYPE_ID_LISTSERVICES_RESPONSE:
 
                     lsr = ListServicesReply(csd.data)
-                    print("lsr:"+str(lsr))
 
                     return lsr
 
@@ -1110,22 +1108,17 @@ class EtherNetIPSocket(object):
         if len(inp) != 0:
 
             data = self.sock.recv(1024)
-            print("data = self.sock.recv(1024):"+str(data))
 
             pkt = EncapsulationPacket()
-            print("pkt = EncapsulationPacket():"+str(pkt))
             
             pkt.unpack(data)
-            print("pkt.unpack(data):"+str(pkt.unpack(data)))
             
 
             if pkt.status == EncapsulationPacket.ENCAP_STATUS_SUCCESS and pkt.command == EncapsulationPacket.ENCAP_CMD_LISTINTERFACES:
-                print("pkt_data:*******"+str(pkt.data))
                 if(pkt.data==b'\x00\x00'):
                     return None
                 else:
                     csd = CommandSpecificData(pkt.data)
-                    print("csd:"+str(csd))
                     return csd
 
         return None
