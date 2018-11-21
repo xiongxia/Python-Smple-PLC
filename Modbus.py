@@ -7,14 +7,14 @@ import modbus_tk.defines as cst
 from modbus_tk import modbus_rtu
 from SerialHelper import SerialHelper
 import time
-
+from Log import Logger
 class Modbus_rtu(object):
     '''
     RTU模式
     '''
 
     def __init__(self, Port="com8", BaudRate=9600, ByteSize=8, Parity="N", Stopbits=1):
-        self.logger = modbus_tk.utils.create_logger("console")
+        self.logger = Logger('aicotinlog',1)
         try:
         #Connect to the slave
             self.master = modbus_rtu.RtuMaster(serial.Serial(Port,BaudRate,ByteSize,Parity,Stopbits,xonxoff=0))
@@ -86,7 +86,7 @@ class Modbus_tcp(object):
     '''
 
     def __init__(self, Host="192.168.1.15"):
-        self.logger = modbus_tk.utils.create_logger("console")
+        self.logger = Logger('aicotinlog',1)
         try:
         #Connect to the slave
             self.master = modbus_tcp.TcpMaster(Host)
@@ -157,7 +157,7 @@ class Modbus_ascii(object):
     '''
 
     def __init__(self, Port="com8", BaudRate=9600, ByteSize=8, Parity="N", Stopbits=1):
-        self.logger = modbus_tk.utils.create_logger("console")
+        self.logger = Logger('aicotinlog',1)
         #Connect to the slave
         self.master = SerialHelper(Port,BaudRate,ByteSize,Parity,Stopbits)
         self.master.connect()

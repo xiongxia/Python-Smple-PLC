@@ -17,7 +17,7 @@ import configparser
 import signal
 import subprocess
 import select
-from log import Logger
+from Log import Logger
 
 
 pid = os.getpid() 
@@ -102,7 +102,7 @@ def start_child_proc(command, merged):
 
 def run_forever(command):
 
-    log = Logger('server.log')
+    log = Logger('service',0)
     log.info("start child process with command: " + ' '.join(command))
     print_info("start child process with command: " + ' '.join(command))
 
@@ -168,6 +168,6 @@ def run_forever(command):
 
 if __name__ == "__main__":
 
-    run_forever(["python", "./test.py"])
+    run_forever(["python", "./main.py"])
 
 

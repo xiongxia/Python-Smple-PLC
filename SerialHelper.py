@@ -5,6 +5,8 @@ import serial
 import binascii
 import platform
 import threading
+from Log import Logger
+
 if platform.system() == "Windows":
     from  serial.tools import list_ports
 else:
@@ -25,6 +27,7 @@ class SerialHelper(object):
 
         self._serial = None
         self._is_connected = False
+        self.log = Logger('aicotinlog',1)
 
     def connect(self, timeout=2):
         '''
@@ -41,12 +44,12 @@ class SerialHelper(object):
         try:
             self._serial.open()
             if self._serial.isOpen():
-                print("open success")
+                self.log.info("open success")
                 self._is_connected = True
             else:
-                print("open failed")
+                self.log.info("open failed")
         except Exception as e:
-            print("open failed")
+            self.log.error("open failed")
             self._is_connected = False
 
     def disconnect(self):
@@ -60,7 +63,7 @@ class SerialHelper(object):
         '''
         发送数据给串口设备
         '''
-        print("Send:%s"%(data))
+        self.log.info("Send:%s"%(data))
         if self._is_connected:
             if isHex:
                 data = binascii.unhexlify(data).decode('iso-8859-1')
@@ -113,7 +116,7 @@ class SerialHelper(object):
 
                     if number > 0:
                         data = self._serial.read(1000).decode(encoding="utf-8")
-                        print(data)
+                        self.log.info(data)
                         func(data)
                     time.sleep(0.01)
                 except Exception as e:
@@ -126,7 +129,7 @@ class SerialHelper(object):
         查找Linux下的串口设备
         '''
         tty_devs = list()
-        print(glob.glob('/dev/*'))
+        self.log.info(glob.glob('/dev/*'))
         for dn in glob.glob('/dev/tty*') :
             try:
                 vid = int(open(os.path.join(dn, "idVendor" )).read().strip(), 16)
@@ -154,8 +157,8 @@ class SerialHelper(object):
             hvol = ord(data[i])
             hhex = '%02x' % hvol
             hex_data += hhex+' '
-        print('hexshow:', hex_data)
-        print(type(hex_data))
+        self.log.info('hexshow:', hex_data)
+
         return hex_data
 
 
@@ -167,7 +170,7 @@ class SerialHelper(object):
         返 回: 转换后的数据
         '''
         hex_data = string_data.decode("hex")
-        print(hexdata)
+        self.log.info(hexdata)
         return hex_data
 
     def LRC(self,data='110'):
@@ -183,10 +186,10 @@ class SerialHelper(object):
             d+=i
         d=0xff-d
         d+=0x01
-        print("LRC:")
+        self.log.info("LRC:")
         lrc="%02x"%(d)
         lrc=lrc.upper()
-        print(lrc)
+        self.log.info(lrc)
         return lrc
 
     def myserial_on_data_received(self, data):
@@ -195,8 +198,8 @@ class SerialHelper(object):
         参 数: 返回数据
         返 回: 无
         '''
-        print("recvice data:")
-        print(data)
+        self.log.info("recvice data:")
+        self.log.info(data)
 '''
 test  串口操作
 if __name__ == '__main__':

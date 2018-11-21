@@ -3,10 +3,54 @@ from threading import Timer
 import json
 from SQL import *
 from Log import *
+from Data import *
+
+#get controller info through IMEI
+def getControllerInfo():
+    #open log file
+    LOG=Logger('aicotinlog',1)
+    global getControllerInfoTimer
+    getControllerInfoTimer = Timer(60, getControllerInfo)
+    getControllerInfoTimer.start()
+    IMEIInfoSql=MYSQL('aicotin.db')
+    #get IMEI and server address from database
+    IMEIInfo=IMEIInfoSql.select('IMEIInfo')
+    if(len(IMEIInfo)>0):
+        IMEI=IMEIInfo[0][0]
+        serverAddr=IMEIInfo[0][1]
+        url=serverAddr+'/newData/device'
+        #print(IMEI)
+        para={'imei':IMEI}
+        responseOrigin=Http.PostRequest(url,para)
+        #print(responseOrigin)
+        if(responseOrigin!=''):
+            response=json.loads(responseOrigin)
+            if(response['code']==200):
+                data=response['data']
+                if(len(data)>0):
+                    #print(data)
+                    if('deviceId' in data):
+                        deviceId=data['deviceId']
+                        deviceInfoSql=MYSQL('aicotin.db')
+                        deviceInfoSql.delete('DeviceID')
+                        deviceInfoSql.insert('DeviceID',(deviceId,serverAddr))
+                        name=data['name']
+                        collectionFreq=data['collectionFrequency']
+                        uploadFreq=data['uploadFrequency']
+                        deviceInfoSql.delete('ControllerInfo')
+                        deviceInfoSql.insert('ControllerInfo',(deviceId,name,collectionFreq,uploadFreq))
+                        
+                else:
+                    LOG.debug("no data related to this IMEI")
+            else:
+                LOG.debug("get controller info fail through IMEI")
+    else:
+        print("no imei info")
+        LOG.debug("no imei info")
 
 def uploadHeart():
     #open log file
-    LOG=Logger(1)
+    LOG=Logger('aicotinlog',1)
     global uploadHeartTimer
     #get upload frequency from database
     uploadHeartTimer = Timer(60, uploadHeart)
@@ -62,7 +106,7 @@ def uploadHeart():
     
 def updateConfig():
     #open LOG file
-    LOG=Logger(1)
+    LOG=Logger('aicotinlog',1)
     global updateConfigTimer
     #get upload frequency from database
     updateConfigTimer = Timer(60, updateConfig)
@@ -78,8 +122,10 @@ def updateConfig():
         #get all PLC bond to the controller
         para = {'deviceId':deviceId}
         responseOrigin=Http.PostRequest(url,para)
+        print(responseOrigin)
         if(responseOrigin!=''):
             response=json.loads(responseOrigin)
+            LOG.debug(response)
             #access cloud success
             if(response['code']==200):
                 data=response['data']
@@ -93,10 +139,6 @@ def updateConfig():
                             deviceId=item['deviceId']
                         else:
                             deviceId=''
-                        if('address' in item):
-                            address=item['address']
-                        else:
-                            address=''
                         if('address' in item):
                             address=item['address']
                         else:
@@ -133,7 +175,7 @@ def updateConfig():
 
 def uploadData():
     #open LOG file
-    LOG=Logger(1)
+    LOG=Logger('aicotinlog',1)
     global uploadDataTimer
     #get the frequency from database
     uploadDataTimer = Timer(60, uploadData)
@@ -148,7 +190,7 @@ def uploadData():
         serverAddr='http://test-collection.ycxz-china.com'
     #get the data that will be uploaded
     data=deviceIdSql.select('Data')
-    #print(data)
+    print(data)
     if(len(data)>0):
         #upload all PLC data
         url = serverAddr+'/data/collect_all'
@@ -157,23 +199,33 @@ def uploadData():
             deviceId=item[0]
             quotaId=item[1]
             value=item[2]
-            allData+='{deviceId:'+str(deviceId)+',quotaId:'+str(quotaId)+',value:'+str(value)+'}'
+            #allData+='{deviceId:'+str(deviceId)+',quotaId:'+str(quotaId)+',value:'+str(value)+'}'
+            
+            data=strutUploadCollectData(deviceId,quotaId,value)
+            allData+=data.toString()
+            
+            LOG.debug("upload data"+allData)
+            
         para = {'collectData':'['
                 +allData
                 +']'}
         responseOrigin=Http.PostRequest(url,para)
         if(responseOrigin!=''):
             response=json.loads(responseOrigin)
-            if((response['code']==200)&(len(response['data'])==0)):
+            if((response['code']==200)&(response['data']==None)):
                 print('upload data success')
                 LOG.debug('upload data success')
+                #deviceIdSql.delete('Data')
             else:
                 print('upload data fail')
-                LOG.debug('upload data fail')
+                LOG.debug('upload data fail'+str(response))
         else:
             print(url+'access cloud fail')
             LOG.debug(url+'access cloud fail')
 
+def getControllerInfoTimer():
+    getControllerInfoTimer = Timer(1, getControllerInfo)
+    getControllerInfoTimer.start()
     
 def uploadHeartTimer():
     uploadHeartTimer = Timer(1, uploadHeart)
