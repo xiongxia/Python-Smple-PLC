@@ -4,6 +4,8 @@ import hashlib
 import os
 from os import system
 from threading import Timer
+import sys
+sys.path.append('../../common/log')
 from Log import *
 
 #calculate the md5 of file

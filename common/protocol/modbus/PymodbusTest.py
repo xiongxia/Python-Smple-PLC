@@ -1,4 +1,6 @@
 from Pymodbus import *
+import sys
+sys.path.append('../../log')
 from Log import *
 import time
 

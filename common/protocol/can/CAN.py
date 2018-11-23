@@ -2,11 +2,13 @@
 
 import can
 import time
+import sys
+sys.path.append('../../log')
 from Log import Logger
 
-    '''
-    CAN协议的实现
-    '''
+'''
+CAN协议的实现
+'''
 class CAN(object):
     def __init__(self,BaudRate=9600, interface='socketcan', channel="vcan0"):
         self.logger = Logger('aicotinlog',1)

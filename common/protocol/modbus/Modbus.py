@@ -6,8 +6,11 @@ import modbus_tk
 import modbus_tk.defines as cst
 from modbus_tk import modbus_rtu
 from modbus_tk import modbus_tcp
+import sys
+sys.path.append('../serial')
 from SerialHelper import SerialHelper
 import time
+sys.path.append('../../log')
 from Log import Logger
 class Modbus_rtu(object):
     '''

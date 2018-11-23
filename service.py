@@ -17,6 +17,7 @@ import configparser
 import signal
 import subprocess
 import select
+sys.path.append('common/log')
 from Log import Logger
 
 

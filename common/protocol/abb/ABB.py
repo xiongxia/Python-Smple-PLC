@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../http')
 from Http import *
 from XmlParser import *
 import time

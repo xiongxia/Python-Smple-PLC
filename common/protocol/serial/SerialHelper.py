@@ -5,6 +5,8 @@ import serial
 import binascii
 import platform
 import threading
+import sys
+sys.path.append('../../log')
 from Log import Logger
 
 if platform.system() == "Windows":

@@ -9,6 +9,8 @@ To see the Tag operations succeed, fire up:
 import sys
 import cpppo
 from cpppo.server.enip import address, client
+import sys
+sys.path.append('../../log')
 from Log import Logger
 
 class EtherNetIP(object):

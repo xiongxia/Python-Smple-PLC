@@ -1,7 +1,10 @@
 from HslCommunication import SiemensS7Net
 from HslCommunication import SiemensPLCS
 from threading import Timer
+import sys
+sys.path.append('../../sql')
 from SQL import *
+sys.path.append('../../log')
 from Log import *
 
 class SiemensS7:

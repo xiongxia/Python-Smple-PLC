@@ -1,9 +1,13 @@
-from Http import Http
 from threading import Timer
 import json
-from SQL import *
+import sys
+sys.path.append('../../log')
 from Log import *
 from Data import *
+from Http import Http
+sys.path.append('../../sql')
+from SQL import *
+
 
 #get controller info through IMEI
 def getControllerInfo():

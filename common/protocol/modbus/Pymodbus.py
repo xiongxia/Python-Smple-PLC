@@ -1,6 +1,8 @@
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from pymodbus.client.sync import ModbusTcpClient as ModbusClientTCP
 from pymodbus.transaction import ModbusRtuFramer
+import sys
+sys.path.append('../../log')
 from Log import *
 
 ERRCODE=-10000

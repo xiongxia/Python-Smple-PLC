@@ -1,8 +1,14 @@
-from HttpAccessCloud import *
-from SiemensS7 import readSiemensS7Timer
-from SQL import *
-from Log import *
 import sys
+sys.path.append('common/sql')
+from SQL import *
+sys.path.append('common/log')
+from Log import *
+sys.path.append('common/protocol/siemenss7')
+from SiemensS7 import readSiemensS7Timer
+sys.path.append("common/protocol/http")
+from HttpAccessCloud import *
+
+
         
 if __name__ == "__main__":
 

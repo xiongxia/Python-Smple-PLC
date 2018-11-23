@@ -3,6 +3,8 @@ import urllib.parse
 import json
 from threading import Timer
 from urllib import error
+import sys
+sys.path.append('../../log')
 from Log import *
 from urllib import request
 from http import cookiejar
