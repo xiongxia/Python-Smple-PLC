@@ -29,7 +29,7 @@ class EtherNetIP(object):
 		self.fragment = 0
 		self.multiple = 0
 		self.printing = True
-		self.logger = Logger('aicotinlog',0)
+		self.logger = Logger('aicotinlog',1)
 	'''
 	读取Ethernet/IP数据，通过tag
 	参数：tags(标签字符串)

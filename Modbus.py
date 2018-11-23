@@ -5,12 +5,13 @@ import serial
 import modbus_tk
 import modbus_tk.defines as cst
 from modbus_tk import modbus_rtu
+from modbus_tk import modbus_tcp
 from SerialHelper import SerialHelper
 import time
 from Log import Logger
 class Modbus_rtu(object):
     '''
-    RTU模式
+    RTU mode data part is returned
     '''
 
     def __init__(self, Port="com8", BaudRate=9600, ByteSize=8, Parity="N", Stopbits=1):
@@ -23,66 +24,126 @@ class Modbus_rtu(object):
             self.logger.info("connected")
         except modbus_tk.modbus.ModbusError as exc:
             self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
-    def read_holding_register (self,Salve_Add=1,Start_Add=1,Data_len=2):
-        '''
-        功能码：3 读保持寄存器
-        '''
-        try:
-            self.logger.info(self.master.execute(Salve_Add, cst.READ_HOLDING_REGISTERS, Start_Add, Data_len))
-        except modbus_tk.modbus.ModbusError as exc:
-            self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
-        '''
-        功能码：1 读线圈
-        '''
+
+    '''
+    function code:1 read coils
+    input:slave address, start address, data length
+    default:slave address=1, start address=1, data length=2
+    output:the data part in the received frame
+    '''
     def read_coils (self,Salve_Add=1,Start_Add=1,Data_len=2):
         try:
-            self.logger.info(self.master.execute(Salve_Add, cst.READ_COILS, Start_Add, Data_len))
+            data = self.master.execute(Salve_Add, cst.READ_COILS, Start_Add, Data_len)
+            self.logger.info(data)
+            return data
         except modbus_tk.modbus.ModbusError as exc:
-            logger.error("%s- Code=%d", exc, exc.get_exception_code())
-        '''
-        功能码：2  读离散输入
-        '''
+            self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
+            return -10000
+    
+    '''
+    functionc code:2 read discrete inputs
+    input:slave address, start address ,data length
+    default:slave address=1, start address=1,data length=2
+    output:the data part in the received frame
+    '''
     def read_discrete_inputs (self,Salve_Add=1,Start_Add=1,Data_len=2):
         try:
-            self.logger.info(self.master.execute(Salve_Add, cst.READ_DISCRETE_INPUTS, Start_Add, Data_len))
+            data = self.master.execute(Salve_Add, cst.READ_DISCRETE_INPUTS, Start_Add, Data_len)
+            self.logger.info(data)
+            return data 
         except modbus_tk.modbus.ModbusError as exc:
             self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
-        '''
-        功能码：5 写单一线圈,Value为写入的值
-        '''
+            return -10000
+
+    '''
+    function code:3 read holding registers
+    input:slave address, start address,data length
+    default:slave address=1, start address=1,data length=2
+    output:the data part in the received frame
+    '''
+    def read_holding_register (self,Salve_Add=1,Start_Add=1,Data_len=2):
+        try:
+            data = self.master.execute(Salve_Add, cst.READ_HOLDING_REGISTERS, Start_Add, Data_len)
+            self.logger.info(data)
+            return data
+        except modbus_tk.modbus.ModbusError as exc:
+            self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
+            return -10000
+
+    '''
+    function code:4 read input registers
+    input:slave address, start address,data length
+    default:slave address=1, start address=1,data length=2
+    output:the data part in the received frame
+    '''
+    def read_input_register (self,Salve_Add=1,Start_Add=1,Data_len=2):
+        try:
+            data = self.master.execute(Salve_Add, cst.READ_INPUT_REGISTERS, Start_Add, Data_len)
+            self.logger.info(data)
+            return data
+        except modbus_tk.modbus.ModbusError as exc:
+            self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
+            return -10000
+
+    '''
+    function code:5 write single coil,Value is the input value
+    input:slave address, start address, value
+    default:slave address =1, start address=1,Value=0
+    output:the start address and the data part
+    '''
     def write_single_coil (self,Salve_Add=1,Start_Add=1,Value=0):
         try:
-            self.logger.info(self.master.execute(Salve_Add, cst.WRITE_SINGLE_COIL, Start_Add,Value))
+            data = self.master.execute(Salve_Add, cst.WRITE_SINGLE_COIL, Start_Add,output_value=Value)
+            self.logger.info(data)
+            return data
         except modbus_tk.modbus.ModbusError as exc:
             self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
-        '''
-        功能码：6 写单一寄存器
-        '''
-    def write_single_registers (self,Salve_Add=1,Start_Add=1,Value=0):
+            return -10000
+    
+    '''
+    function code:6,write single registers
+    input:slave address, start address, value
+    default:slave address=1, start address =1, value=0
+    output:the start address and the function code
+    '''
+    def write_single_register (self,Salve_Add=1,Start_Add=1,Value=0):
         try:
-            self.logger.info(self.master.execute(Salve_Add, cst.WRITE_SINGLE_REGISTER, Start_Add, Value))
+            data = self.master.execute(Salve_Add, cst.WRITE_SINGLE_REGISTER, Start_Add, output_value=Value)
+            self.logger.info(data)
+            return data
         except modbus_tk.modbus.ModbusError as exc:
             self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
-        '''
-        功能码：15 写多个线圈 
-        '''
+            return -10000
+        
+    '''
+    function code:15, write multiple coils
+    input:slave address, start address, value
+    default:slave address=1, start address=1, value=[1,2,3]
+    output:none
+    '''
     def write_multiple_coils (self,Salve_Add=1,Start_Add=1,Value=[1,2,3]):
         try:
-            self.logger.info(self.master.execute(Salve_Add, cst.WRITE_MULTIPLE_COILS, Start_Add,Value))
+            self.logger.info(self.master.execute(Salve_Add, cst.WRITE_MULTIPLE_COILS, Start_Add,output_value=Value))
         except modbus_tk.modbus.ModbusError as exc:
             self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
-        '''
-        功能码：16 写多寄存器
-        '''
-    def write_multple_registers (self,Salve_Add=1,Start_Add=1,Value=[1,2]):
+            return -10000
+    
+    '''
+    function code:16, write multiple registers
+    input:slave address, start address, value
+    default:slave address=1, start address=1, value=[1,2]
+    output:none
+    '''
+    def write_multiple_registers (self,Salve_Add=1,Start_Add=1,Value=[1,2]):
         try:
-            self.logger.info(self.master.execute(Salve_Add, cst.WRITE_MULTIPLE_REGISTERS, Start_Add, Value))
+            self.logger.info(self.master.execute(Salve_Add, cst.WRITE_MULTIPLE_REGISTERS, Start_Add, output_value=Value))
         except modbus_tk.modbus.ModbusError as exc:
             self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
+            return -10000
 
 class Modbus_tcp(object):
     '''
-    TCP模式
+    TCPmode
     '''
 
     def __init__(self, Host="192.168.1.15"):
@@ -94,69 +155,129 @@ class Modbus_tcp(object):
             self.logger.info("connected")
         except modbus_tk.modbus.ModbusError as exc:
             self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
-    def read_holding_register (self,Start_Add=1,Data_len=2):
-        '''
-        功能码：3 读保持寄存器
-        '''
+            return -10000
+    '''
+    function code:1 read coils
+    input:slave address, start address, data length
+    default:slave address=1, start address=1, data length=2
+    output:the data part in the received frame
+    '''
+    def read_coils (self,Salve_Add=1,Start_Add=1,Data_len=2):
         try:
-            self.logger.info(self.master.execute(1, cst.READ_HOLDING_REGISTERS, Start_Add, Data_len))
-        except modbus_tk.modbus.ModbusError as exc:
-            self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
-        '''
-        功能码：1 读线圈
-        '''
-    def read_coils (self,Start_Add=1,Data_len=2):
-        try:
-            self.logger.info(self.master.execute(1, cst.READ_COILS, Start_Add, Data_len))
+            data = self.master.execute(Salve_Add, cst.READ_COILS, Start_Add, Data_len)
+            self.logger.info(data)
+            return data
         except modbus_tk.modbus.ModbusError as exc:
             logger.error("%s- Code=%d", exc, exc.get_exception_code())
-        '''
-        功能码：2  读离散输入
-        '''
-    def read_discrete_inputs (self,Start_Add=1,Data_len=2):
+            return -10000
+    
+    '''
+    functionc code:2 read discrete inputs
+    input:slave address, start address ,data length
+    default:slave address=1, start address=1,data length=2
+    output:the data part in the received frame
+    '''
+    def read_discrete_inputs (self,Salve_Add=1,Start_Add=1,Data_len=2):
         try:
-            self.logger.info(self.master.execute(1, cst.READ_DISCRETE_INPUTS, Start_Add, Data_len))
+            data = self.master.execute(Salve_Add, cst.READ_DISCRETE_INPUTS, Start_Add, Data_len)
+            self.logger.info(data)
+            return data 
         except modbus_tk.modbus.ModbusError as exc:
             self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
-        '''
-        功能码：5 写单一线圈,Value为写入的值
-        '''
-    def write_single_coil (self,Start_Add=1,Value=0):
+            return -10000
+
+    '''
+    function code:3 read holding registers
+    input:slave address, start address,data length
+    default:slave address=1, start address=1,data length=2
+    output:the data part in the received frame
+    '''
+    def read_holding_register (self,Salve_Add=1,Start_Add=1,Data_len=2):
         try:
-            self.logger.info(self.master.execute(1, cst.WRITE_SINGLE_COIL, Start_Add,Value))
+            data = self.master.execute(Salve_Add, cst.READ_HOLDING_REGISTERS, Start_Add, Data_len)
+            self.logger.info(data)
+            return data
         except modbus_tk.modbus.ModbusError as exc:
             self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
-        '''
-        功能码：6 写单一寄存器
-        '''
-    def write_single_registers (self,Salve_Add=1,Start_Add=1,Value=2):
+            return -10000
+
+    '''
+    function code:4 read input registers
+    input:slave address, start address,data length
+    default:slave address=1, start address=1,data length=2
+    output:the data part in the received frame
+    '''
+    def read_input_register (self,Salve_Add=1,Start_Add=1,Data_len=2):
         try:
-            self.logger.info(self.master.execute(Salve_Add, cst.WRITE_SINGLE_REGISTER, Start_Add, Value))
+            data = self.master.execute(Salve_Add, cst.READ_INPUT_REGISTERS, Start_Add, Data_len)
+            self.logger.info(data)
+            return data
         except modbus_tk.modbus.ModbusError as exc:
             self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
-        '''
-        功能码：15 写多个线圈 Value=[20,21,22,23],列表写入
-        '''
-    def write_multiple_coils (self,Salve_Add=1,Start_Add=1,Value=[20,21,22,23]):
+            return -10000
+
+    '''
+    function code:5 write single coil,Value is the input value
+    input:slave address, start address, value
+    default:slave address =1, start address=1,Value=0
+    output:the start address and the function code
+    '''
+    def write_single_coil (self,Salve_Add=1,Start_Add=1,Value=0):
         try:
-            self.logger.info(self.master.execute(Salve_Add, cst.WRITE_MULTIPLE_COILS, Start_Add,Value))
+            data = self.master.execute(Salve_Add, cst.WRITE_SINGLE_COIL, Start_Add,output_value=Value)
+            self.logger.info(data)
+            return data
         except modbus_tk.modbus.ModbusError as exc:
             self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
-        '''
-        功能码：16 写多寄存器, Value=[20,21,22,23],列表写入
-        '''
-    def write_multple_registers (self,Salve_Add=1,Start_Add=1,Value=[20,21,22,23]):
+            return -10000
+    
+    '''
+    function code:6,write single registers
+    input:slave address, start address, value
+    default:slave address=1, start address =1, value=0
+    output:the start address and the function code
+    '''
+    def write_single_register (self,Salve_Add=1,Start_Add=1,Value=0):
         try:
-            self.logger.info(self.master.execute(Salve_Add, cst.WRITE_MULTIPLE_REGISTERS, Start_Add,Value))
+            data = self.master.execute(Salve_Add, cst.WRITE_SINGLE_REGISTER, Start_Add, output_value=Value)
+            self.logger.info(data)
+            return data
         except modbus_tk.modbus.ModbusError as exc:
             self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
+            return -10000
+        
+    '''
+    function code:15, write multiple coils
+    input:slave address, start address, value
+    default:slave address=1, start address=1, value=[1,2,3]
+    output:the start address and the function code
+    '''
+    def write_multiple_coils (self,Salve_Add=1,Start_Add=1,Value=[1,2,3]):
+        try:
+            self.logger.info(self.master.execute(Salve_Add, cst.WRITE_MULTIPLE_COILS, Start_Add,output_value=Value))
+        except modbus_tk.modbus.ModbusError as exc:
+            self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
+            return -10000
+    
+    '''
+    function code:16, write multiple registers
+    input:slave address, start address, value
+    default:slave address=1, start address=1, value=[1,2]
+    output:the start address and the function code
+    '''
+    def write_multiple_registers (self,Salve_Add=1,Start_Add=1,Value=[1,2]):
+        try:
+            self.logger.info(self.master.execute(Salve_Add, cst.WRITE_MULTIPLE_REGISTERS, Start_Add, output_value=Value))
+        except modbus_tk.modbus.ModbusError as exc:
+            self.logger.error("%s- Code=%d", exc, exc.get_exception_code())
+            return -10000
 
 class Modbus_ascii(object):
     '''
-    ASCII模式
+    ASCII mode
     '''
 
-    def __init__(self, Port="com8", BaudRate=9600, ByteSize=8, Parity="N", Stopbits=1):
+    def __init__(self, Port="com7", BaudRate=9600, ByteSize=8, Parity="N", Stopbits=1):
         self.logger = Logger('aicotinlog',1)
         #Connect to the slave
         self.master = SerialHelper(Port,BaudRate,ByteSize,Parity,Stopbits)
@@ -166,41 +287,44 @@ class Modbus_ascii(object):
 
     def read_holding_register (self,Salve_Add=1,Start_Add=1,Data_len=2):
         '''
-        功能码：3 读保持寄存器
+        function code:3, read holding register
         '''
-        self.function(3,Salve_Add,Start_Add,Data_len)
+        print(self.function(3,Salve_Add,Start_Add,Data_len))
+        return self.master.receive_data
 
     def read_coils (self,Salve_Add=1,Start_Add=1,Data_len=2):
         '''
-        功能码：1 读线圈
+        function code:1, read coils
         '''
         self.function(1,Salve_Add,Start_Add,Data_len)
+        print(self.master.receive_data)
+        return self.master.receive_data
 
     def read_discrete_inputs (self,Salve_Add=1,Start_Add=1,Data_len=2):
         '''
-        功能码：2  读离散输入
+        function code:2, read discrete inputs
         '''
         self.function(2,Salve_Add,Start_Add,Data_len)
-
+        return self.master.receive_data
     def write_single_coil (self,Salve_Add=1,Start_Add=1,Data_len=2):
         '''
-        功能码：5 写单一线圈
+        function code:5, write single coils
         '''
         self.function(5,Salve_Add,Start_Add,Data_len)
-    def write_single_registers (self,Salve_Add=1,Start_Add=1,Data_len=2):
+    def write_single_register (self,Salve_Add=1,Start_Add=1,Data_len=2):
         '''
-        功能码：6 写单一寄存器
+        function code:6, write single register
         '''
         self.function(6,Salve_Add,Start_Add,Data_len)
     def write_multiple_coils (self,Salve_Add=1,Start_Add=1,Data_len=2):
         '''
-        功能码：15 写多个线圈 
+        function code:15, write multiple coils
         '''
         self.function(15,Salve_Add,Start_Add,Data_len)
 
-    def write_multple_registers (self,Salve_Add=1,Start_Add=1,Data_len=2):
+    def write_multiple_registers (self,Salve_Add=1,Start_Add=1,Data_len=2):
         '''
-        功能码：16 写多寄存器
+        function code:16, write multiple registers
         '''
         self.function(16,Salve_Add,Start_Add,Data_len)
 
@@ -237,9 +361,10 @@ class Modbus_ascii(object):
 
         temp=self.master.LRC(s)
         data+=temp
+        print(temp)
 
         data+="\r\n"
-        #print(data)
+        print(data)
 
         self.master.write(data)
         self.master.on_data_received()
@@ -249,6 +374,7 @@ class Modbus_ascii(object):
 
             time.sleep(1)
             count += 1
+        print("send finish")
         self.logger.info("send finish")
 
 '''
@@ -256,10 +382,10 @@ test ASCII模式 读取台达数据
 #coding:utf-8
 
 from Modbus import Modbus_ascii
-'''
+
 read = Modbus_rtu("com8")
 read.read_holding_register(4,0,2)
-'''
+
 read = Modbus_ascii("com8",9600,7,"E",1)
 read.read_holding_register(1,614,8)
 

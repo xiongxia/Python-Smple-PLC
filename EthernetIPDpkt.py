@@ -1305,8 +1305,8 @@ class EtherNetIPSession(EtherNetIPSocket):
         return self.unconnSend(CI_SRV_GET_ALL, path+data, \
 
                                random.randint(1,4026531839), chk, chkdata)
-
-                            
+    
+                           
 
     def setAttrSingle(self, clas, inst, attr, data):
 
@@ -1321,6 +1321,7 @@ class EtherNetIPSession(EtherNetIPSocket):
             if data_len&1:
 
                 data += b"\x00"
+        print("data******",data)
 
         path = self.mkReqPath(clas, inst, attr)
 

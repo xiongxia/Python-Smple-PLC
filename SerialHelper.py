@@ -23,7 +23,7 @@ class SerialHelper(object):
         self.parity = Parity
         self.stopbits = Stopbits
         self.threshold_value = 1
-        self.receive_data = ""
+        self.receive_data = "ddd"
 
         self._serial = None
         self._is_connected = False
@@ -118,6 +118,7 @@ class SerialHelper(object):
                         data = self._serial.read(1000).decode(encoding="utf-8")
                         self.log.info(data)
                         func(data)
+                        self.receive_data = data
                     time.sleep(0.01)
                 except Exception as e:
                     self._is_connected = False

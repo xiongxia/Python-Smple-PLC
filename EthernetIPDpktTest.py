@@ -10,22 +10,23 @@ def testENIP():
     C1 = EIP.explicit_conn(hostname)
 
     #input class code,instance,attribute
-    r = C1.getAttrSingle(0x2, 0x1, 0x2)
+    r = C1.getAttrSingle(0x1, 0x1, 0x1)
     print(r)
 
     if 0 == r[0]:
         print(r[1])
     else:
         print("Failed to getAttrSingle")
+  
 
-    r = C1.getAttrSingle(0x1, 0x1, 0x5)
+    r = C1.getAttrSingle(0x16, 0x1, 0x1)
 
     if 0 == r[0]:
         print(r[1])
     else:
         print("Failed to getAttrSingle")
 
-    r = C1.getAttrAll(0xf5, 0x1)
+    r = C1.getAttrAll(0x16, 0x1)
 
     if 0 == r[0]:
         print(r[1])
@@ -49,5 +50,6 @@ def testENIP():
     pkt = C1.listServices()
 
     print("ListServices:", str(pkt))
+    
 
 testENIP()
