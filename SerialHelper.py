@@ -23,7 +23,7 @@ class SerialHelper(object):
         self.parity = Parity
         self.stopbits = Stopbits
         self.threshold_value = 1
-        self.receive_data = "ddd"
+        self.receive_data = ""
 
         self._serial = None
         self._is_connected = False
