@@ -498,10 +498,72 @@ def readSiemensS7Cyclic():
             else:
                 LOG.debug('read no plc info from table')
     else:
+       LOG.debug('no plc')
+
+def readSiemensS7Regular():
+    #open LOG file
+    LOG=Logger('aicotinlog',1)
+    LOG.debug('readSiemensS7')
+    
+    dataSql=MYSQL("aicotin.db")
+    
+    global readSiemensS7Timer
+    #get sample frequency from database
+    controllerInfo=dataSql.select('ControllerInfo')
+    collectionFreq=controllerInfo[0][2]
+    readSiemensS7Timer = Timer(10, readSiemensS7Cyclic)
+    readSiemensS7Timer.start()
+    
+    plcInfo=dataSql.select('PLCInfo')
+    #print(len(plcInfo))
+    if(len(plcInfo)>0):
+        dataSql.delete('Data')
+        for item in plcInfo:
+            ipAddress = item[1]
+            deviceId = item[0]
+            readAddress = item[2]
+            readAddressArray = readAddress.split('|')
+            if(len(readAddressArray) > 0):
+                siemensDevice = SiemensS7(ipAddress,SiemensPLCS.S1200)
+                for readItem in readAddressArray:
+                    readType = readItem.split(',')
+                    if(readType[1] == 'bool'):
+                        value = siemensDevice.readSiemensS7Bool(readType[0])
+                    elif(readType[1] == 'byte'):
+                        value = siemensDevice.readSiemensS7Byte(readType[0])
+                    elif(readType[1] == 'int'):
+                        value = siemensDevice.readSiemensS7Int32(readType[0])
+                    elif(readType[1] == 'ushort'):
+                        value = siemensDevice.readSiemensS7UInt16(readType[0])
+                    elif(readType[1] == 'short'):
+                        value = siemensDevice.readSiemensS7Int16(readType[0])
+                    elif(readType[1] == 'uint'):
+                        value = siemensDevice.readSiemensS7UInt32(readType[0])
+                    elif(readType[1] == 'long'):
+                        value = siemensDevice.readSiemensS7Int64(readType[0])
+                    elif(readType[1] == 'ulong'):
+                        value = siemensDevice.readSiemensS7UInt64(readType[0])
+                    elif(readType[1] == 'float'):
+                        value = siemensDevice.readSiemensS7Float(readType[0])
+                    elif(readType[1] == 'double'):
+                        value = siemensDevice.readSiemensS7Double(readType[0])
+                    else:
+                        LOG.debug('read PLC type error')
+                    if(value !=''):
+                        LOG.debug(deviceId+':read PLC success, save to database')
+                        LOG.debug('read PLC address:' + readType[0] + '  data type :'+ readType[1] + '  value :' +str(value))
+                        dataSql.insert('Data',(deviceId,readType[0],str(value)))
+                    else:
+                        LOG.debug(deviceId+':read PLC fail')
+                siemensDevice.closeConnect()
+            else:
+                LOG.debug('read no plc info from table')
+    else:
        LOG.debug('no plc') 
 
 def readSiemensS7Timer():
-    readSiemensS7Timer = Timer(5, readSiemensS7Cyclic)
+    #readSiemensS7Timer = Timer(5, readSiemensS7Cyclic)
+    readSiemensS7Timer = Timer(5, readSiemensS7Regular)
     readSiemensS7Timer.start()
 
 

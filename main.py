@@ -34,11 +34,12 @@ if __name__ == "__main__":
         LOG.debug(deviceIdSql.select('IMEIInfo'))
 
     #getControllerInfo
-    getControllerInfoTimer()
+    #getControllerInfoTimer()
+    getControlMode()
     #upload heart 
-    uploadHeartTimer()
+    #uploadHeartTimer()
     #update configuration
-    updateConfigTimer()
+    #updateConfigTimer()
     #read PLC data
     readSiemensS7Timer()
     #upload data to cloud
